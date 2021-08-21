@@ -12,17 +12,15 @@ Happy drilling!
 
 ## Setup
 
-Ensure you have [Python](https://www.python.org/) installed and on the PATH.
+Ensure you have [Python](https://www.python.org/downloads/) installed and on the PATH. Also ensure you have [Poetry](https://python-poetry.org/docs/master/#installation) installed.
 
 Clone this repository and `cd` inside it.
 
-Create a virtual environment using `python -m venv .venv`.
-
-Enter it using `call .venv\Scripts\activate` on Windows or `source .venv/bin/activate` on Linux. Leave it using `deactivate`.
-
-Install all packages by entering the virtual environment and running `pip install -r requirements.txt`
+Install all packages by running `poetry install`.
 
 ## Running the Server
 
-Enter the virtual environment and run `python app.py`.
+Run `poetry run python app.py`.
+
+If you want hot reloading and the like, set the `FLASK_DEBUG` environment variable to `1` and restart the server.
 
