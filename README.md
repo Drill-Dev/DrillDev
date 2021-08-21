@@ -22,3 +22,5 @@ Install all packages by running `poetry install`.
 
 Run `poetry run python app.py`.
 
+If you want hot reloading and the like, set the `FLASK_DEBUG` environment variable to `1` and restart the server.
+
