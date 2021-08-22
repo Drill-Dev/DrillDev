@@ -9,20 +9,3 @@ That's why we're creating DrillDev.
 DrillDev is an open source project which aims to provide a way to practice and prove your software development skills. We're still in very early stages of development, and we're welcome to inviting new members on the team who are passionate about giving software development the same level of treatment as computer science. If you're interested, feel free to send us an email at contact@drilldev.com!
 
 Happy drilling!
-
-## Setup
-
-Clone this repository and `cd` inside it.
-
-## Running the server
-
-To start the Flask server, navigate into the `backend` directory and run `poetry run server`.
-
-## IDE Configuration
-
-To make DrillDev play nice with your IDE, run:
-
-```shell script
-poetry config virtualenvs.path null --local
-poetry config virtualenvs.in-project true --local
-```
