@@ -21,7 +21,8 @@ WORKDIR /root/app
 # Install Poetry
 RUN pip3 install poetry==$POETRY_VERSION
 
-COPY ./pyproject.toml /root/app/pyproject.toml  
+COPY ./pyproject.toml /root/app/pyproject.toml
+COPY ./poetry.lock /root/app/poetry.lock
 
 RUN poetry install
 RUN poetry run playwright install firefox
