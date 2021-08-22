@@ -21,8 +21,7 @@ def run():
 			page.set_default_timeout(3000)  # 3 seconds
 			try:
 				page.click("text='Login'")
-			except BaseException as e:  # TODO: Replace with TimeoutError later
-				print(repr(e))
+			except playwright.sync_api.TimeoutError:
 				return {"status": "TLE"}
 			browser.close()
 	return {"status": "AC"}
