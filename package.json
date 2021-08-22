@@ -5,6 +5,9 @@
   "author": "DrillDev <contact@drilldev.com>",
   "license": "AGPL-3.0",
   "private": true,
+  "scripts": {
+    "postinstall": "husky install"
+  },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
