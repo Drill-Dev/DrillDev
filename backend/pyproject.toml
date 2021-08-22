@@ -9,6 +9,7 @@ license = "AGPL-3.0"
 python = "^3.8"
 playwright = "^1.14.0"
 Flask = "^2.0.1"
+Flask-Cors = "^3.0.10"
 
 [tool.poetry.dev-dependencies]
 yapf = "^0.31.0"
