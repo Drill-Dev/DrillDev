@@ -14,7 +14,7 @@ export default defineComponent({
 
 		async function submitCode() {
 			const formData = new FormData();
-			formData.append('file', fileInput.value?.files![0] as Blob);
+			formData.append('file', fileInput.value!.files![0] as Blob);
 
 			await serverKy.post('run', {
 				body: formData,
