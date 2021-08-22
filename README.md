@@ -22,5 +22,5 @@ Build the server image by running `docker build -t drilldev -f backend/Dockerfil
 
 Run `docker run --name=drilldev -p 5000:5000 drilldev`.
 
-If you want hot reloading and the like, too bad I haven't figured it out yet.
+If you want hot reloading and the like, run `docker run --name=drilldev -p 5000:5000 -e FLASK_DEBUG=1 -v <current directory>/backend/app.py:/app/app.py drilldev` instead.
 
