@@ -2,9 +2,22 @@ import os
 import tempfile
 
 import flask
+import flask_cors
 import playwright.sync_api
 
 app = flask.Flask(__name__)
+flask_cors.CORS(app)
+
+
+@app.route("/")
+def root():
+	return '''
+		<form action="/run" method="post" enctype="multipart/form-data">
+			<label for="file">Upload and test an HTML file</label><br />
+			<input type="file" id="file" name="file" /><br />
+			<input type="submit" value="Submit" /><br />
+		</form>
+	'''
 
 
 @app.route("/run", methods=["POST"])
