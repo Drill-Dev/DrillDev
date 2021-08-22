@@ -12,15 +12,15 @@ Happy drilling!
 
 ## Setup
 
-Ensure you have [Python](https://www.python.org/downloads/) installed and on the PATH. Also ensure you have [Poetry](https://python-poetry.org/docs/master/#installation) installed.
+Ensure you have [Docker](https://www.docker.com/) installed and on the PATH.
 
 Clone this repository and `cd` inside it.
 
-Install all packages by running `poetry install`.
+Build the server image by running `docker build -t drilldev .`.
 
 ## Running the Server
 
-Run `poetry run python app.py`.
+Run `docker run --name=drilldev -p 5000:5000 drilldev`.
 
-If you want hot reloading and the like, set the `FLASK_DEBUG` environment variable to `1` and restart the server.
+If you want hot reloading and the like, too bad I haven't figured it out yet.
 
