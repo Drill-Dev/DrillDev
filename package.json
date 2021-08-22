@@ -6,7 +6,7 @@
   "license": "AGPL-3.0",
   "private": true,
   "scripts": {
-    "postinstall": "husky install"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
