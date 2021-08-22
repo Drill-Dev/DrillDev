@@ -6,7 +6,7 @@ import flask_cors
 import playwright.sync_api
 
 app = flask.Flask(__name__)
-flask_cors.CORS(app)
+flask_cors.CORS(app, )
 
 
 @app.route("/")
