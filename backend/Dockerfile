@@ -35,4 +35,3 @@ RUN poetry run playwright install-deps firefox
 
 # The port we'll bind to
 EXPOSE 5000
-
