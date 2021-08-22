@@ -6,7 +6,7 @@ authors = ["George Zhang <geetransit@gmail.com>"]
 license = "AGPL-3.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 playwright = "^1.14.0"
 Flask = "^2.0.1"
 
