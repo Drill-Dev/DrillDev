@@ -10,6 +10,8 @@ services:
     volumes:
       - ./backend:/root/app
       - backend_venv:/root/app/.venv
+      - backend_pycache:/root/app/__pycache__
 
 volumes:
   backend_venv:
+  backend_pycache:

@@ -18,6 +18,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 python3
 
 WORKDIR /root/app
 
+# Create cached folders beforehand to avoid permission issues
+RUN mkdir -p \
+	/root/app/.venv \
+	/root/app/__pycache__
+
 # Install Poetry
 RUN pip3 install poetry==$POETRY_VERSION
 
