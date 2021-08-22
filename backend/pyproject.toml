@@ -11,6 +11,7 @@ playwright = "^1.14.0"
 Flask = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
+yapf = "^0.31.0"
 
 [tool.poetry.scripts]
 server = "scripts.server:main"

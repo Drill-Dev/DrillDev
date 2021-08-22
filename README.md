@@ -12,13 +12,11 @@ Happy drilling!
 
 ## Setup
 
-Ensure you have [Docker](https://www.docker.com/) installed and on the PATH.
-
 Clone this repository and `cd` inside it.
 
 ## Running the server
 
-To start the Flask server, navigate into the `drilldev` directory and run `poetry run server`.
+To start the Flask server, navigate into the `backend` directory and run `poetry run server`.
 
 ## IDE Configuration
 
