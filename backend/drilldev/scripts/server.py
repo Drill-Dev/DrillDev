@@ -1,5 +1,6 @@
 import os
 
+
 def main():
 	os.system("""
 		FLASK_APP=drilldev/app.py FLASK_DEBUG=1 \
