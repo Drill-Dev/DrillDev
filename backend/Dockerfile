@@ -16,15 +16,13 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 # Install Python and Pip
 RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip
 
-WORKDIR /app
+WORKDIR /root/app
 
 # Install Poetry
 RUN pip3 install poetry==$POETRY_VERSION
 
-# Copy everything inside
-COPY backend ./
+COPY ./pyproject.toml /root/app/pyproject.toml  
 
-# Install dependencies needed
 RUN poetry install
 RUN poetry run playwright install firefox
 RUN poetry run playwright install-deps firefox
@@ -32,5 +30,3 @@ RUN poetry run playwright install-deps firefox
 # The port we'll bind to
 EXPOSE 5000
 
-# The command to start the server
-CMD poetry run flask run --host=0.0.0.0 --port=5000

@@ -16,11 +16,10 @@ Ensure you have [Docker](https://www.docker.com/) installed and on the PATH.
 
 Clone this repository and `cd` inside it.
 
-Build the server image by running `docker build -t drilldev -f backend/Dockerfile .`.
-
 ## Running the Server
 
-Run `docker run --name=drilldev -p 5000:5000 drilldev`.
+To run the server, run `docker-compose up backend`. This will build the backend container which contains the backend server for DrillDev.
 
-If you want hot reloading and the like, run `docker run --name=drilldev -p 5000:5000 -e FLASK_DEBUG=1 -v <current directory>/backend/app.py:/app/app.py drilldev` instead.
+Once the backend container is running, `exec` into the container using `docker exec drilldev_backend_1 -it bash`.
 
+Then, from the `/root/app` directory, run `./scripts/start-server.sh`.
