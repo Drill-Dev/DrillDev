@@ -7,8 +7,10 @@ specifiers:
   '@vitejs/plugin-vue': ^1.3.0
   '@vue/compiler-sfc': ^3.0.5
   eslint-config-prettier: ^8.3.0
+  eslint-import-resolver-alias: ^1.1.2
   eslint-plugin-import: ^2.24.1
   eslint-plugin-simple-import-sort: ^7.0.0
+  ky: ^0.28.5
   pinia: ^2.0.0-rc.6
   prettier: ^2.3.2
   pug: ^3.0.2
@@ -21,6 +23,7 @@ specifiers:
   windicss: ^3.1.7
 
 dependencies:
+  ky: 0.28.5
   pinia: 2.0.0-rc.6_typescript@4.3.5+vue@3.2.4
   vue: 3.2.4
   vue-router: 4.0.11_vue@3.2.4
@@ -32,6 +35,7 @@ devDependencies:
   '@vitejs/plugin-vue': 1.4.0_@vue+compiler-sfc@3.2.4
   '@vue/compiler-sfc': 3.2.4
   eslint-config-prettier: 8.3.0
+  eslint-import-resolver-alias: 1.1.2_eslint-plugin-import@2.24.1
   eslint-plugin-import: 2.24.1
   eslint-plugin-simple-import-sort: 7.0.0
   prettier: 2.3.2
@@ -658,6 +662,15 @@ packages:
       eslint: '>=7.0.0'
     dev: true
 
+  /eslint-import-resolver-alias/1.1.2_eslint-plugin-import@2.24.1:
+    resolution: {integrity: sha512-WdviM1Eu834zsfjHtcGHtGfcu+F30Od3V7I9Fi57uhBEwPkjDcii7/yW8jAT+gOhn4P/vOxxNAXbFAKsrrc15w==}
+    engines: {node: '>= 4'}
+    peerDependencies:
+      eslint-plugin-import: '>=1.4.0'
+    dependencies:
+      eslint-plugin-import: 2.24.1
+    dev: true
+
   /eslint-import-resolver-node/0.3.6:
     resolution: {integrity: sha512-0En0w03NRVMn9Uiyn8YRPDKvWjxCWkslUEhGNTdGx15RvPJYQ+lbOlqrlNI2vEAs4pDYK4f/HN2TbDmk5TP0iw==}
     dependencies:
@@ -1044,6 +1057,11 @@ packages:
       is-promise: 2.2.2
       promise: 7.3.1
     dev: true
+
+  /ky/0.28.5:
+    resolution: {integrity: sha512-O5gg9kF4MeyfSw+YkgPAafOPwEUU6xcdGEJKUJmKpIPbLzk3oxUtY4OdBNekG7mawofzkyZ/ZHuR9ev5uZZdAA==}
+    engines: {node: '>=12'}
+    dev: false
 
   /load-json-file/4.0.0:
     resolution: {integrity: sha1-L19Fq5HjMhYjT9U62rZo607AmTs=}
