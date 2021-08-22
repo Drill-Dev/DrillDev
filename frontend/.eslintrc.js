@@ -1,25 +1,16 @@
 module.exports = {
-	// https://eslint.vuejs.org/user-guide/#how-to-use-custom-parser
-	// Must use parserOptions instead of "parser" to allow vue-eslint-parser to keep working
-	// `parser: 'vue-eslint-parser'` is already included with any 'plugin:vue/**' config and should be omitted
 	parserOptions: {
-		// https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#configuration
-		// https://github.com/TypeStrong/fork-ts-checker-webpack-plugin#eslint
-		// Needed to make the parser take into account 'vue' files
 		extraFileExtensions: ['.vue'],
 		parser: '@typescript-eslint/parser',
 		project: ['./tsconfig.eslint.json'],
 		tsconfigRootDir: __dirname,
-		ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-		sourceType: 'module', // Allows for the use of imports
+		ecmaVersion: 2018,
+		sourceType: 'module',
 	},
-
 	env: {
 		node: true,
 		browser: true,
 	},
-
-	// Rules order is important, please avoid shuffling them
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/eslint-recommended',
@@ -27,19 +18,12 @@ module.exports = {
 		'plugin:vue/vue3-recommended',
 		'prettier',
 	],
-
 	plugins: [
-		// required to apply rules which need type information
 		'@typescript-eslint',
 		'simple-import-sort',
 		'import',
-
-		// https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
-		// required to lint *.vue files
 		'vue',
 	],
-
-	// add your custom rules here
 	rules: {
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': 'off',
