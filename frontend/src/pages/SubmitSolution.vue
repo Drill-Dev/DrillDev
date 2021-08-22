@@ -16,9 +16,12 @@ export default defineComponent({
 			const formData = new FormData();
 			formData.append('file', fileInput.value!.files![0] as Blob);
 
-			await serverKy.post('run', {
+			const response = await serverKy.post('run', {
 				body: formData,
 			});
+
+			const { status } = await response.json();
+			console.log(status);
 		}
 
 		return {
