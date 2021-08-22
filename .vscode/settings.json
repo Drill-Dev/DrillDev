@@ -1,8 +1,8 @@
 {
 	"files.eol": "\n",
-	"python.pythonPath": "./backend/.venv/bin/python",
-	"python.defaultInterpreterPath": "./backend/.venv/bin/python",
+	"python.pythonPath": "./drilldev/.venv/bin/python",
+	"python.defaultInterpreterPath": "./drilldev/.venv/bin/python",
 	"python.analysis.extraPaths": [
-		"./backend/src"
+		"./drilldev/src"
 	],
 }

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "drilldev"
+version = "0.1.0"
+description = ""
+authors = ["George Zhang <geetransit@gmail.com>"]
+license = "AGPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+playwright = "^1.14.0"
+Flask = "^2.0.1"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+server = "drilldev.scripts.server:main"
+
+[build-system]
+requires = ["poetry-core>=1.1.7"]
+build-backend = "poetry.core.masonry.api"
