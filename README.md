@@ -29,6 +29,6 @@ poetry config virtualenvs.in-project true --local
 
 To run the server, run `docker-compose up backend`. This will build the backend container which contains the backend server for DrillDev.
 
-Once the backend container is running, `exec` into the container using `docker exec drilldev_backend_1 -it bash`.
+Once the backend container is running, open up a new terminal window and run `docker exec drilldev_backend_1 -it bash`.
 
 Then, from the `/root/app` directory, run `./scripts/start-server.sh`.
