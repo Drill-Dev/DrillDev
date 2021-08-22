@@ -16,6 +16,15 @@ Ensure you have [Docker](https://www.docker.com/) installed and on the PATH.
 
 Clone this repository and `cd` inside it.
 
+## IDE Configuration
+
+To make DrillDev play nice with your IDE, run:
+
+```shell script
+poetry config virtualenvs.path null --local
+poetry config virtualenvs.in-project true --local
+```
+
 ## Running the Server
 
 To run the server, run `docker-compose up backend`. This will build the backend container which contains the backend server for DrillDev.
