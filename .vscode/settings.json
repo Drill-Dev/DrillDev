@@ -3,6 +3,6 @@
 	"python.pythonPath": "./backend/.venv/bin/python",
 	"python.defaultInterpreterPath": "./backend/.venv/bin/python",
 	"python.analysis.extraPaths": [
-		"./backend/src"
+		"./backend/drilldev"
 	],
 }
