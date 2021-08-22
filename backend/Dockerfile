@@ -22,7 +22,7 @@ WORKDIR /app
 RUN pip3 install poetry==$POETRY_VERSION
 
 # Copy everything inside
-COPY . ./
+COPY backend ./
 
 # Install dependencies needed
 RUN poetry install
