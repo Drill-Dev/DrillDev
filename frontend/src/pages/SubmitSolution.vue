@@ -1,20 +1,28 @@
-<template>
-	<label for="file">Upload and test an HTML file</label><br />
-	<input type="file" id="file" name="file" /><br />
-	<button @click="submitCode">Submit</button>
+<template lang="pug">
+.flex.flex-col
+	input(type='file' ref='fileInput' name='file')
+	button(@click="submitCode") Submit
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { serverKy } from '~/utils/ky';
 
 export default defineComponent({
 	setup() {
+		const fileInput = ref<HTMLInputElement>();
+
 		async function submitCode() {
-			await serverKy.post('run');
+			const formData = new FormData();
+			formData.append('file', fileInput.value?.files![0] as Blob);
+
+			await serverKy.post('run', {
+				body: formData,
+			});
 		}
 
 		return {
+			fileInput,
 			submitCode,
 		};
 	},
