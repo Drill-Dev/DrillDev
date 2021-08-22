@@ -16,7 +16,7 @@ Ensure you have [Docker](https://www.docker.com/) installed and on the PATH.
 
 Clone this repository and `cd` inside it.
 
-Build the server image by running `docker build -t drilldev .`.
+Build the server image by running `docker build -t drilldev -f backend/Dockerfile .`.
 
 ## Running the Server
 
