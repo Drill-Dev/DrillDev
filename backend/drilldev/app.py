@@ -23,15 +23,9 @@ def run():
 				page.click("text='Login'")
 			except BaseException as e:  # TODO: Replace with TimeoutError later
 				print(repr(e))
-				return f'''
-					<p>Failed</p>
-					<a href="{flask.url_for("root")}">Home</a>
-				'''
+				return {"status": "TLE"}
 			browser.close()
-	return f'''
-		<p>Passed</p>
-		<a href="{flask.url_for("root")}">Home</a>
-	'''
+	return {"status": "AC"}
 
 
 if __name__ == "__main__":
