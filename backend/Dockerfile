@@ -16,12 +16,19 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 # Install Python and Pip
 RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip
 
-WORKDIR /root/app
+WORKDIR /root/backend
+
+# Create cached folders beforehand to avoid permission issues
+RUN mkdir -p \
+	/root/backend/scripts \
+	/root/backend/src \
+	/root/backend/src/__pycache__
 
 # Install Poetry
 RUN pip3 install poetry==$POETRY_VERSION
 
-COPY ./pyproject.toml /root/app/pyproject.toml  
+COPY ./pyproject.toml /root/backend/pyproject.toml
+COPY ./poetry.lock /root/backend/poetry.lock
 
 RUN poetry install
 RUN poetry run playwright install firefox
@@ -29,4 +36,3 @@ RUN poetry run playwright install-deps firefox
 
 # The port we'll bind to
 EXPOSE 5000
-
