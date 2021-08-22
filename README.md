@@ -16,6 +16,10 @@ Ensure you have [Docker](https://www.docker.com/) installed and on the PATH.
 
 Clone this repository and `cd` inside it.
 
+## Running the server
+
+To start the Flask server, navigate into the `drilldev` directory and run `poetry run server`.
+
 ## IDE Configuration
 
 To make DrillDev play nice with your IDE, run:
@@ -24,11 +28,3 @@ To make DrillDev play nice with your IDE, run:
 poetry config virtualenvs.path null --local
 poetry config virtualenvs.in-project true --local
 ```
-
-## Running the Server
-
-To run the server, run `docker-compose up backend`. This will build the backend container which contains the backend server for DrillDev.
-
-Once the backend container is running, open up a new terminal window and run `docker exec drilldev_backend_1 -it bash`.
-
-Then, from the `/root/app` directory, run `./scripts/start-server.sh`.
