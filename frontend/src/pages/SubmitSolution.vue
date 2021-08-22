@@ -11,7 +11,7 @@ import { serverKy } from '~/utils/ky';
 export default defineComponent({
 	setup() {
 		async function submitCode() {
-			await serverKy.post('/run');
+			await serverKy.post('run');
 		}
 
 		return {
