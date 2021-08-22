@@ -14,7 +14,7 @@ Flask = "^2.0.1"
 yapf = "^0.31.0"
 
 [tool.poetry.scripts]
-server = "drilldev.scripts.server:main"
+server = "scripts.server:main"
 
 [build-system]
 requires = ["poetry-core>=1.1.7"]
