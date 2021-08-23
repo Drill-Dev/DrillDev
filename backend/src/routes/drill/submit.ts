@@ -1,6 +1,7 @@
 import Docker from 'dockerode';
 import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
+import got from 'got';
 import path from 'path';
 import playwright from 'playwright';
 import { pipeline } from 'stream';
@@ -72,7 +73,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 		} finally {
 			await browser.close();
 			await submissionContainer.remove({
-				force: true
+				force: true,
 			});
 		}
 	});

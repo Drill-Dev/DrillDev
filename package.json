@@ -6,13 +6,13 @@
 	"license": "AGPL-3.0",
 	"private": true,
 	"scripts": {
-		"dev:backend": "yarn workspace backend-ts dev",
+		"dev:backend": "yarn workspace backend dev",
 		"dev:frontend": "yarn workspace frontend dev",
 		"prepare": "husky install"
 	},
 	"workspaces": [
 		"frontend",
-		"backend-ts"
+		"backend"
 	],
 	"devDependencies": {
 		"@commitlint/cli": "^13.1.0",
