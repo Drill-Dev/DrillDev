@@ -19,20 +19,23 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 		// Create a temporary directory
 		const { path: dirPath } = await dir();
 
+		// Retrieve the uploaded file from the request
 		const data = await request.file();
 
+		// Save the file to the temporary directory
 		await pump(
 			data.file,
 			fs.createWriteStream(path.join(dirPath, 'index.html'))
 		);
 
+		// Create the python container to run the submission on
 		await docker.getImage('python:3.8');
 		const submissionContainer = await docker.createContainer({
 			Image: 'python:3.8',
 			Cmd: stringArgv('python -m http.server -d /root/html 80'),
 			ExposedPorts: { '80/tcp': {} },
-
 			HostConfig: {
+				// Mount the temporary directory to /root/html
 				Binds: [`${dirPath}:/root/html:ro`],
 				PortBindings: {
 					'80/tcp': [
