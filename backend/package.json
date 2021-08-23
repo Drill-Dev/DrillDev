@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "ts-node src/app.ts",
 		"lint": "eslint --fix --ext .js,.ts src",
-		"generate": "prisma generate"
+		"generate": "prisma generate",
+		"migrate": "prisma migrate dev"
 	},
 	"keywords": [],
 	"author": "",
