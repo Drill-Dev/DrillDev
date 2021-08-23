@@ -138,6 +138,9 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 					const { status } = JSON.parse(logs);
 					await reply.send({ status });
+				} catch (error) {
+					console.log(error);
+					await reply.send({ status: "IE" });
 				} finally {
 					// Destroy the submission and test containers
 					await submissionContainer.remove({
