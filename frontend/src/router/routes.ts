@@ -11,7 +11,7 @@ const specificSubmissionRoutes: RouteRecordRaw[] = [
 	},
 	{
 		path: '/submission/:submissionId/resubmit',
-		component: () => import('~/pages/SubmissionResubmitPage.vue'),
+		component: () => import('~/pages/submission/ResubmitSubmissionPage.vue'),
 	},
 ];
 
@@ -48,11 +48,11 @@ const accountRoutes: RouteRecordRaw[] = [
 const manageRoutes: RouteRecordRaw[] = [
 	{
 		path: '/manage/drill',
-		component: () => import('~/pages/create/ManageDrillsPage.vue'),
+		component: () => import('~/pages/manage/ManageDrillsPage.vue'),
 	},
 	{
 		path: '/manage/drill/:drillId',
-		component: () => import('~/pages/create/ManageDrillPage.vue'),
+		component: () => import('~/pages/manage/ManageDrillPage.vue'),
 	},
 	{
 		path: '/manage/drilldash',
