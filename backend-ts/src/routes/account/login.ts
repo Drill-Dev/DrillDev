@@ -1,5 +1,6 @@
+
 import { FastifyInstance } from 'fastify';
 
-export function loginRoute(_app: FastifyInstance) {
+export default async function loginRoute(_app: FastifyInstance) {
 	// TODO
 }

@@ -1,18 +1,19 @@
 import 'tsconfig-paths/register';
 
 import fastify from 'fastify';
+import fastifyAutoload from 'fastify-autoload';
 import fastifyCors from 'fastify-cors';
 import fastifyMultipart from 'fastify-multipart';
-import process from 'process';
-
-import { routes } from './routes';
+import path from 'path';
 
 const app = fastify({
 	logger: true,
 });
 app.register(fastifyMultipart);
 app.register(fastifyCors);
-app.register(routes);
+app.register(fastifyAutoload, {
+	dir: path.join(__dirname, 'routes'),
+});
 
 app.listen(5000, (err, address) => {
 	if (err) {
