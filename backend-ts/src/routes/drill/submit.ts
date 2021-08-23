@@ -71,8 +71,9 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 			}
 		} finally {
 			await browser.close();
-			await submissionContainer.stop();
-			await submissionContainer.remove();
+			await submissionContainer.remove({
+				force: true
+			});
 		}
 	});
 }
