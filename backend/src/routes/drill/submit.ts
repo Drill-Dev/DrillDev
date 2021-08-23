@@ -121,19 +121,14 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						follow: true,
 					});
 
-					const logs = await new Promise((resolve) => {
+					const logs = await (async () => {
 						const output: string[] = [];
 						logStream.setEncoding('utf-8');
-						logStream.on('data', (data) => {
-							for (const index in data) {
-								output.push(data[index]);
-							}
-						});
-
-						logStream.on('close', () => {
-							resolve(output.join(''));
-						});
-					});
+						for await (const data of logStream) {
+							output.push(data);
+						}
+						return output.join('');
+					})();
 
 					const exitCode = (await testContainer.inspect()).State.ExitCode;
 					if (exitCode) {
