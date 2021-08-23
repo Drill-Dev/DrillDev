@@ -10,7 +10,7 @@
 		"--style={use_tabs: true}"
 	],
 	"eslint.workingDirectories": [
-		"./backend-ts",
+		"./backend",
 		"./frontend"
 	],
 	"cSpell.words": [
