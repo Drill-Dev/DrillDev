@@ -82,7 +82,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 			);
 
 			// Create the python container to run the submission on
-			await docker.getImage('python:3.8');
 			const submissionContainer = await docker.createContainer({
 				Image: 'python:3.8',
 				Cmd: stringArgv('python -m http.server -d /root/html 80'),
@@ -99,7 +98,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					},
 				},
 			});
-
 			await submissionContainer.start();
 
 			try {
