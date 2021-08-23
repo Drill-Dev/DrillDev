@@ -1,14 +1,16 @@
-import fastify from 'fastify';
+import 'tsconfig-paths/register';
+
 import Docker from 'dockerode';
-import { dir } from 'tmp-promise';
+import fastify from 'fastify';
+import fastifyCors from 'fastify-cors';
 import fastifyMultipart from 'fastify-multipart';
-import playwright from 'playwright';
 import fs from 'fs-extra';
 import path from 'path';
-import fastifyCors from 'fastify-cors';
+import playwright from 'playwright';
 import { pipeline } from 'stream';
-import util from 'util';
 import stringArgv from 'string-argv';
+import { dir } from 'tmp-promise';
+import util from 'util';
 import waitPort from 'wait-port';
 
 const pump = util.promisify(pipeline);

@@ -4,7 +4,8 @@
 	"description": "Because Python typing sucks.",
 	"main": "index.js",
 	"scripts": {
-		"dev": "ts-node-dev app.ts"
+		"dev": "ts-node-dev app.ts",
+		"lint": "eslint --fix --ext .js,.ts src"
 	},
 	"keywords": [],
 	"author": "",
@@ -26,9 +27,16 @@
 		"@types/busboy": "^0.2.4",
 		"@types/dockerode": "^3.2.7",
 		"@types/fs-extra": "^9.0.12",
+		"@typescript-eslint/eslint-plugin": "^4.29.2",
+		"eslint": "^7.32.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-import-resolver-alias": "^1.1.2",
+		"eslint-plugin-import": "^2.24.1",
+		"eslint-plugin-simple-import-sort": "^7.0.0",
 		"prisma": "^2.29.1",
 		"ts-node": "^10.2.1",
 		"ts-node-dev": "^1.1.8",
+		"tsconfig-paths": "^3.10.1",
 		"typescript": "^4.3.2"
 	}
 }

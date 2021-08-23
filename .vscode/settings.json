@@ -9,6 +9,10 @@
 	"python.formatting.yapfArgs": [
 		"--style={use_tabs: true}"
 	],
+	"eslint.workingDirectories": [
+		"./backend-ts",
+		"./frontend"
+	],
 	"cSpell.words": [
 		"Drilldash",
 		"Drilldashes"

@@ -1,32 +1,14 @@
 module.exports = {
-	overrides: [
-		{
-			files: ['*.vue', '*.d.ts'],
-			rules: {
-				'import/no-default-export': 'off',
-			},
-		},
-	],
-	parserOptions: {
-		extraFileExtensions: ['.vue'],
-		parser: '@typescript-eslint/parser',
-		project: ['./tsconfig.eslint.json'],
-		tsconfigRootDir: __dirname,
-		ecmaVersion: 2018,
-		sourceType: 'module',
-	},
 	env: {
 		node: true,
-		browser: true,
 	},
+	parser: '@typescript-eslint/parser',
 	extends: [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:vue/vue3-recommended',
 		'prettier',
 	],
-	plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'vue'],
+	plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
 	rules: {
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
@@ -36,8 +18,6 @@ module.exports = {
 			'error',
 			{ ignoreArgsIfArgsAfterAreUsed: true },
 		],
-		'@typescript-eslint/explicit-module-boundary-types': 'off',
-		'@typescript-eslint/explicit-function-return-type': 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-param-reassign': 'off',
 		'import/extensions': [
@@ -46,13 +26,6 @@ module.exports = {
 			{
 				js: 'never',
 				ts: 'never',
-			},
-		],
-		'vue/html-indent': ['error', 'tab'],
-		'@typescript-eslint/no-misused-promises': [
-			'error',
-			{
-				checksVoidReturn: false,
 			},
 		],
 		'no-lonely-if': 'off',
@@ -78,7 +51,7 @@ module.exports = {
 		'import/resolver': {
 			alias: {
 				map: [['~', './src']],
-				extensions: ['.js', '.ts', '.vue'],
+				extensions: ['.js', '.ts'],
 			},
 		},
 	},
