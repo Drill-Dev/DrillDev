@@ -71,44 +71,49 @@ async function judgeSubmission(): Promise<SubmissionStatus> {
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
 		// Create a temporary directory for the submission
-		return await tmp.withDir(async ({ path: submissionPath }) => {
-			// Retrieve the uploaded file from the request
-			const data = await request.file();
+		return await tmp.withDir(
+			async ({ path: submissionPath }) => {
+				// Retrieve the uploaded file from the request
+				const data = await request.file();
 
-			// Save the file to the submission directory
-			await pump(
-				data.file,
-				fs.createWriteStream(path.join(submissionPath, 'index.html'))
-			);
+				// Save the file to the submission directory
+				await pump(
+					data.file,
+					fs.createWriteStream(path.join(submissionPath, 'index.html'))
+				);
 
-			// Create the python container to run the submission on
-			const submissionContainer = await docker.createContainer({
-				Image: 'python:3.8',
-				Cmd: stringArgv('python -m http.server -d /root/html 80'),
-				ExposedPorts: { '80/tcp': {} },
-				HostConfig: {
-					// Mount the submission directory to /root/html
-					Binds: [`${submissionPath}:/root/html:ro`],
-					PortBindings: {
-						'80/tcp': [
-							{
-								HostPort: '8080',
-							},
-						],
+				// Create the python container to run the submission on
+				await docker.getImage('python:3.8');
+				const submissionContainer = await docker.createContainer({
+					Image: 'python:3.8',
+					Cmd: stringArgv('python -m http.server -d /root/html 80'),
+					ExposedPorts: { '80/tcp': {} },
+					HostConfig: {
+						// Mount the submission directory to /root/html
+						Binds: [`${submissionPath}:/root/html:ro`],
+						PortBindings: {
+							'80/tcp': [
+								{
+									HostPort: '8080',
+								},
+							],
+						},
 					},
-				},
-			});
-			await submissionContainer.start();
-
-			try {
-				const submissionResult = await judgeSubmission();
-				await reply.send(submissionResult);
-			} finally {
-				// Destroy the submission container
-				await submissionContainer.remove({
-					force: true,
 				});
-			}
-		}, { unsafeCleanup: true });
+
+				await submissionContainer.start();
+
+				try {
+					const submissionResult = await judgeSubmission();
+					await reply.send(submissionResult);
+				} finally {
+					// Destroy the submission container
+					await submissionContainer.remove({
+						force: true,
+					});
+				}
+			},
+			{ unsafeCleanup: true }
+		);
 	});
 }
