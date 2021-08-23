@@ -136,7 +136,8 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						});
 					});
 
-					console.log(`gee${logs}`);
+					const { status } = JSON.parse(logs);
+					await reply.send({ status });
 				} finally {
 					// Destroy the submission and test containers
 					await submissionContainer.remove({
