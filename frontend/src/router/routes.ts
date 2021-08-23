@@ -60,9 +60,17 @@ const createRoutes: RouteRecordRaw[] = [
 	},
 ];
 
+const websiteRoutes: RouteRecordRaw[] = [
+	{
+		path: '/',
+		component: () => import('~/pages/website/LandingPage.vue'),
+	},
+];
+
 export const routes: RouteRecordRaw[] = [
 	...specificSubmissionRoutes,
 	...specificDrillRoutes,
 	...accountRoutes,
 	...createRoutes,
+	...websiteRoutes,
 ];
