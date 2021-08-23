@@ -20,6 +20,7 @@ app.register(fastifyAutoload, {
 // Load all routes
 app.register(fastifyAutoload, {
 	dir: path.join(__dirname, 'routes'),
+	dirNameRoutePrefix: false
 });
 
 app.listen(5000, (err, address) => {
