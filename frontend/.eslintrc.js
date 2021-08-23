@@ -25,6 +25,7 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:vue/vue3-recommended',
 		'prettier',
+		'plugin:unicorn/recommended',
 	],
 	plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'vue'],
 	rules: {
