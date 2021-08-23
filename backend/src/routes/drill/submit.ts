@@ -74,11 +74,11 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 		return await tmp.withDir(
 			async ({ path: submissionPath }) => {
 				// Retrieve the uploaded file from the request
-				const data = await request.file();
+				const fileData = await request.file();
 
 				// Save the file to the submission directory
 				await pump(
-					data.file,
+					fileData.file,
 					fs.createWriteStream(path.join(submissionPath, 'index.html'))
 				);
 
@@ -110,17 +110,33 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						// Mount the test directory to /root/test
 						Binds: [`${__dirname}/../../../../test:/root/test:ro`],
 					},
+					Tty: true,
 				});
 				await testContainer.start();
 
 				try {
-					const testStream = await testContainer.attach({});
-					const testChunks = [];
-					for await (let chunk of testStream) {
-						testChunks.push(Buffer.from(chunk));
-					}
-					const { success } = JSON.parse(Buffer.concat(testChunks).toString("utf-8"));
-					await reply.send({ success });
+					const logStream = await testContainer.attach({
+						stdout: true,
+						stderr: true,
+						stream: true,
+						logs: true,
+					});
+
+					const logs = await new Promise((resolve) => {
+						const output: string[] = [];
+						logStream.setEncoding('utf-8');
+						logStream.on('data', (data) => {
+							for (const index in data) {
+								output.push(data[index]);
+							}
+						});
+
+						logStream.on('close', () => {
+							resolve(output.join(''));
+						});
+					});
+
+					console.log(`gee${logs}`);
 				} finally {
 					// Destroy the submission and test containers
 					await submissionContainer.remove({
