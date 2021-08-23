@@ -11,6 +11,8 @@ const app = fastify({
 });
 app.register(fastifyMultipart);
 app.register(fastifyCors);
+
+// Load all routes in the /routes folder
 app.register(fastifyAutoload, {
 	dir: path.join(__dirname, 'routes'),
 });
