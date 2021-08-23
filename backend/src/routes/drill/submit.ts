@@ -2,13 +2,13 @@ import Docker from 'dockerode';
 import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
 import got from 'got';
-import path from 'path';
+import path from 'node:path';
+import { pipeline } from 'node:stream';
+import util from 'node:util';
 import playwright from 'playwright';
 import promiseRetry from 'promise-retry';
-import { pipeline } from 'stream';
 import stringArgv from 'string-argv';
 import { dir } from 'tmp-promise';
-import util from 'util';
 
 // A promisfied wrapper for easily piping a file read stream into a write stream
 const pump = util.promisify(pipeline);
@@ -18,7 +18,7 @@ const docker = new Docker();
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
 		// Create a temporary directory
-		const { path: dirPath } = await dir();
+		const { path: directoryPath } = await dir();
 
 		// Retrieve the uploaded file from the request
 		const data = await request.file();
@@ -26,7 +26,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 		// Save the file to the temporary directory
 		await pump(
 			data.file,
-			fs.createWriteStream(path.join(dirPath, 'index.html'))
+			fs.createWriteStream(path.join(directoryPath, 'index.html'))
 		);
 
 		// Create the python container to run the submission on
@@ -37,7 +37,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 			ExposedPorts: { '80/tcp': {} },
 			HostConfig: {
 				// Mount the temporary directory to /root/html
-				Binds: [`${dirPath}:/root/html:ro`],
+				Binds: [`${directoryPath}:/root/html:ro`],
 				PortBindings: {
 					'80/tcp': [
 						{
@@ -78,22 +78,17 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 			// Send an AC status if the test passes without errors
 			return reply.send({ status: 'AC' });
-		} catch (e) {
-			console.error(e);
+		} catch (error) {
+			console.error(error);
 
 			// Send a TLE if the error is a TimeoutError
-			if (e instanceof playwright.errors.TimeoutError) {
-				return reply.send({
-					status: 'TLE',
-				});
-			}
-
-			// Otherwise, send an IE (internal error)
-			else {
-				return reply.send({
-					status: 'IE',
-				});
-			}
+			return error instanceof playwright.errors.TimeoutError
+				? reply.send({
+						status: 'TLE',
+				  })
+				: reply.send({
+						status: 'IE',
+				  });
 		} finally {
 			// Close the browser
 			await browser.close();
@@ -104,7 +99,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 			});
 
 			// Clean up the temporary directory
-			await fs.remove(dirPath);
+			await fs.remove(directoryPath);
 		}
 	});
 }

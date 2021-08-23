@@ -4,7 +4,7 @@ import fastify from 'fastify';
 import fastifyAutoload from 'fastify-autoload';
 import fastifyCors from 'fastify-cors';
 import fastifyMultipart from 'fastify-multipart';
-import path from 'path';
+import path from 'node:path';
 
 const app = fastify({
 	logger: true,
@@ -20,13 +20,13 @@ app.register(fastifyAutoload, {
 // Load all routes
 app.register(fastifyAutoload, {
 	dir: path.join(__dirname, 'routes'),
-	dirNameRoutePrefix: false
+	dirNameRoutePrefix: false,
 });
 
-app.listen(5000, (err, address) => {
-	if (err) {
-		console.error(err);
-		process.exit(1);
+app.listen(5000, (error, address) => {
+	if (error) {
+		console.error(error);
+		throw error;
 	} else {
 		console.log(`Listening at ${address}`);
 	}
