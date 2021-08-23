@@ -49,6 +49,7 @@ module.exports = {
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
 		'unicorn/prefer-module': 'off',
+		'unicorn/prefer-node-protocol': 'off',
 	},
 	settings: {
 		'import/resolver': {
