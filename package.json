@@ -6,6 +6,8 @@
 	"license": "AGPL-3.0",
 	"private": true,
 	"scripts": {
+		"dev:backend": "yarn workspace backend-ts dev",
+		"dev:frontend": "yarn workspace frontend dev",
 		"prepare": "husky install"
 	},
 	"workspaces": [
