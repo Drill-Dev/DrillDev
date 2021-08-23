@@ -4,7 +4,7 @@ import fastify from 'fastify';
 import fastifyAutoload from 'fastify-autoload';
 import fastifyCors from 'fastify-cors';
 import fastifyMultipart from 'fastify-multipart';
-import path from 'node:path';
+import path from 'path';
 
 const app = fastify({
 	logger: true,

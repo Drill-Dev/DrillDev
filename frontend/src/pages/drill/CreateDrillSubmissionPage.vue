@@ -19,6 +19,7 @@ export default defineComponent({
 
 			const response = await serverKy.post('run', {
 				body: formData,
+				timeout: false,
 			});
 
 			const { status } = await response.json();
