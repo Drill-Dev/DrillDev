@@ -102,50 +102,71 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 				});
 				await submissionContainer.start();
 
-				// Create the Playwright container to run the test on
-				const testContainer = await docker.createContainer({
-					Image: 'mcr.microsoft.com/playwright:v1.14.0-focal',
-					Cmd: stringArgv('python /root/test/test.py'),
-					HostConfig: {
-						// Mount the test directory to /root/test
-						Binds: [`${__dirname}/../../../test:/root/test:ro`],
-					},
-					Tty: true,
-				});
-				await testContainer.start();
-
 				try {
-					const logStream = await testContainer.logs({
-						stdout: true,
-						stderr: true,
-						follow: true,
-					});
-
-					const logs = await (async () => {
-						const output: string[] = [];
-						logStream.setEncoding('utf-8');
-						for await (const data of logStream) {
-							output.push(data);
-						}
-						return output.join('');
-					})();
-
-					const exitCode = (await testContainer.inspect()).State.ExitCode;
-					if (exitCode) {
-						throw new Error(`nonzero exit code ${exitCode}`);
+					try {
+						// Give the page 5 seconds to bind to port 8080
+						await promiseRetry(
+							async (retry) => {
+								const { statusCode } = await got.get('http://localhost:8080');
+								if (!(statusCode >= 200 && statusCode < 400)) {
+									retry(new Error('Could not bind to port.'));
+								}
+							},
+							{ minTimeout: 1000, factor: 1, retries: 5 }
+						);
+					} catch {
+						// Send a PE if they're taking too long to bind to the port
+						return await reply.send({ status: 'PE' });
 					}
 
-					const { status } = JSON.parse(logs);
-					await reply.send({ status });
-				} catch (error) {
-					console.log(error);
-					await reply.send({ status: "IE" });
-				} finally {
-					// Destroy the submission and test containers
-					await submissionContainer.remove({
-						force: true,
+					// Create the Playwright container to run the test on
+					const testContainer = await docker.createContainer({
+						Image: 'mcr.microsoft.com/playwright:v1.14.0-focal',
+						Cmd: stringArgv('python /root/test/test.py'),
+						HostConfig: {
+							// Mount the test directory to /root/test
+							Binds: [`${__dirname}/../../../test:/root/test:ro`],
+						},
+						Tty: true,
 					});
-					await testContainer.remove({
+					await testContainer.start();
+
+					try {
+						const logStream = await testContainer.logs({
+							stdout: true,
+							stderr: true,
+							follow: true,
+						});
+
+						const logs = await (async () => {
+							const output: string[] = [];
+							logStream.setEncoding('utf-8');
+							for await (const data of logStream) {
+								output.push(data);
+							}
+							return output.join('');
+						})();
+
+						const exitCode = (await testContainer.inspect()).State.ExitCode;
+						if (exitCode) {
+							console.log(logs);
+							throw new Error(`nonzero exit code ${exitCode}`);
+						}
+
+						const { status } = JSON.parse(logs);
+						await reply.send({ status });
+					} catch (error) {
+						console.log(error);
+						await reply.send({ status: "IE" });
+					} finally {
+						// Destroy the test container
+						await testContainer.remove({
+							force: true,
+						});
+					}
+				} finally {
+					// Destroy the submission container
+					await submissionContainer.remove({
 						force: true,
 					});
 				}
