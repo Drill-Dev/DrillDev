@@ -1,0 +1,14 @@
+version: "2.4"
+services:
+  postgresql:
+    image: postgres:13.4
+    environment:
+      POSTGRES_USER: drilldev
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: drilldev
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  postgres:
