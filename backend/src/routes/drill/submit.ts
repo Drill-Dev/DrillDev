@@ -119,8 +119,8 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					for await (let chunk of testStream) {
 						testChunks.push(Buffer.from(chunk));
 					}
-					const { success } = JSON.parse(Buffer.concat(testChunks).toString("utf-8"));
-					await reply.send({ success });
+					const { status } = JSON.parse(Buffer.concat(testChunks).toString("utf-8"));
+					await reply.send({ status });
 				} finally {
 					// Destroy the submission and test containers
 					await submissionContainer.remove({
