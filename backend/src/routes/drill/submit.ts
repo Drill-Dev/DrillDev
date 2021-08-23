@@ -135,6 +135,11 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						});
 					});
 
+					const exitCode = (await testContainer.inspect()).State.ExitCode;
+					if (exitCode) {
+						throw new Error(`nonzero exit code ${exitCode}`);
+					}
+
 					const { status } = JSON.parse(logs);
 					await reply.send({ status });
 				} catch (error) {
