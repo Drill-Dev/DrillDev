@@ -3,15 +3,15 @@ import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
 import got from 'got';
 import path from 'path';
-import { pipeline } from 'stream';
-import util from 'util';
 import playwright from 'playwright';
 import promiseRetry from 'promise-retry';
+import { pipeline } from 'stream';
 import stringArgv from 'string-argv';
 import { dir } from 'tmp-promise';
+import { promisify } from 'util';
 
 // A promisfied wrapper for easily piping a file read stream into a write stream
-const pump = util.promisify(pipeline);
+const pump = promisify(pipeline);
 
 const docker = new Docker();
 
