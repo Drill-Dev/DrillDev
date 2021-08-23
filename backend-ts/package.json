@@ -1,0 +1,32 @@
+{
+	"name": "backend-ts",
+	"version": "1.0.0",
+	"description": "Because Python typing sucks.",
+	"main": "index.js",
+	"scripts": {
+		"dev": "ts-node-dev app.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "AGPL-3.0",
+	"dependencies": {
+		"dockerode": "^3.3.0",
+		"fastify": "^3.20.2",
+		"fastify-cors": "^6.0.2",
+		"fastify-multipart": "^4.0.7",
+		"fs-extra": "^10.0.0",
+		"p-wait-for": "^3.2.0",
+		"playwright": "^1.14.0",
+		"string-argv": "^0.3.1",
+		"tmp-promise": "^3.0.2",
+		"wait-port": "^0.2.9"
+	},
+	"devDependencies": {
+		"@types/busboy": "^0.2.4",
+		"@types/dockerode": "^3.2.7",
+		"@types/fs-extra": "^9.0.12",
+		"ts-node": "^10.2.1",
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.3.2"
+	}
+}
