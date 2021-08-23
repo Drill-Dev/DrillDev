@@ -48,6 +48,7 @@ module.exports = {
 		'no-else-return': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
+		'unicorn/prefer-module': 'off',
 	},
 	settings: {
 		'import/resolver': {

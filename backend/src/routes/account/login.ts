@@ -42,11 +42,6 @@ export default async function loginRoute(app: FastifyInstance) {
 			return reply.send('Incorrect username or password.');
 		}
 
-		if (await bcrypt.compare(password, result.passwordHash)) {
-			// TODO: Create login tokens
-			return reply.status(200);
-		} else {
-			return reply.send('Incorrect username or password.');
-		}
+		return (await bcrypt.compare(password, result.passwordHash)) ? reply.status(200) : reply.send('Incorrect username or password.');
 	});
 }
