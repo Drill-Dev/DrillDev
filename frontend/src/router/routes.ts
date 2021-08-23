@@ -3,11 +3,11 @@ import { RouteRecordRaw } from 'vue-router';
 const specificSubmissionRoutes: RouteRecordRaw[] = [
 	{
 		path: '/submission/:submissionId',
-		component: () => import('~/pages/submission/SubmissionViewPage.vue'),
+		component: () => import('~/pages/submission/ViewSubmissionPage.vue'),
 	},
 	{
 		path: '/submission/:submissionId/source',
-		component: () => import('~/pages/submission/SubmissionViewSourcePage.vue'),
+		component: () => import('~/pages/submission/ViewSubmissionSourcePage.vue'),
 	},
 	{
 		path: '/submission/:submissionId/resubmit',
@@ -18,15 +18,11 @@ const specificSubmissionRoutes: RouteRecordRaw[] = [
 const specificDrillRoutes: RouteRecordRaw[] = [
 	{
 		path: '/drill/:drillId',
-		component: () => import('~/pages/drill/DrillViewPage.vue'),
+		component: () => import('~/pages/drill/ViewDrillPage.vue'),
 	},
 	{
 		path: '/drill/:drillId/submit',
-		component: () => import('~/pages/drill/DrillSubmitSolutionPage.vue'),
-	},
-	{
-		path: '/drill/:drillId/edit',
-		component: () => import('~/pages/drill/DrillEditPage.vue'),
+		component: () => import('~/pages/drill/CreateDrillSubmissionPage.vue'),
 	},
 ];
 
@@ -41,22 +37,30 @@ const accountRoutes: RouteRecordRaw[] = [
 	},
 	{
 		path: '/profile/:username',
-		component: () => import('~/pages/account/ProfileViewPage.vue'),
+		component: () => import('~/pages/account/ViewProfilePage.vue'),
 	},
 	{
 		path: '/profile/:username/edit',
-		component: () => import('~/pages/account/ProfileEditPage.vue'),
+		component: () => import('~/pages/account/EditProfilePage.vue'),
 	},
 ];
 
-const createRoutes: RouteRecordRaw[] = [
+const manageRoutes: RouteRecordRaw[] = [
 	{
-		path: '/create/drill',
-		component: () => import('~/pages/create/CreateDrillPage.vue'),
+		path: '/manage/drill',
+		component: () => import('~/pages/create/ManageDrillsPage.vue'),
 	},
 	{
-		path: '/create/drilldash',
-		component: () => import('~/pages/create/CreateDrillDashPage.vue'),
+		path: '/manage/drill/:drillId',
+		component: () => import('~/pages/create/ManageDrillPage.vue'),
+	},
+	{
+		path: '/manage/drilldash',
+		component: () => import('~/pages/manage/ManageDrilldashesPage.vue'),
+	},
+	{
+		path: '/manage/drilldash/:drilldashId',
+		component: () => import('~/pages/manage/CreateDrilldashPage.vue'),
 	},
 ];
 
@@ -71,6 +75,6 @@ export const routes: RouteRecordRaw[] = [
 	...specificSubmissionRoutes,
 	...specificDrillRoutes,
 	...accountRoutes,
-	...createRoutes,
+	...manageRoutes,
 	...websiteRoutes,
 ];

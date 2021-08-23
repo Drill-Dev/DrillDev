@@ -8,5 +8,9 @@
 	"python.formatting.provider": "yapf",
 	"python.formatting.yapfArgs": [
 		"--style={use_tabs: true}"
+	],
+	"cSpell.words": [
+		"Drilldash",
+		"Drilldashes"
 	]
 }
