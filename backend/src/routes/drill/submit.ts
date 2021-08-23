@@ -70,15 +70,15 @@ async function judgeSubmission(): Promise<SubmissionStatus> {
 
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
-		// Create a temporary directory
-		return await tmp.withDir(async ({ path: directoryPath }) => {
+		// Create a temporary directory for the submission
+		return await tmp.withDir(async ({ path: submissionPath }) => {
 			// Retrieve the uploaded file from the request
 			const data = await request.file();
 
-			// Save the file to the temporary directory
+			// Save the file to the submission directory
 			await pump(
 				data.file,
-				fs.createWriteStream(path.join(directoryPath, 'index.html'))
+				fs.createWriteStream(path.join(submissionPath, 'index.html'))
 			);
 
 			// Create the python container to run the submission on
@@ -88,8 +88,8 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 				Cmd: stringArgv('python -m http.server -d /root/html 80'),
 				ExposedPorts: { '80/tcp': {} },
 				HostConfig: {
-					// Mount the temporary directory to /root/html
-					Binds: [`${directoryPath}:/root/html:ro`],
+					// Mount the submission directory to /root/html
+					Binds: [`${submissionPath}:/root/html:ro`],
 					PortBindings: {
 						'80/tcp': [
 							{
