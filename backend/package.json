@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "ts-node src/app.ts",
-		"lint": "eslint --fix --ext .js,.ts src"
+		"lint": "eslint --fix --ext .js,.ts src",
+		"generate": "prisma generate"
 	},
 	"keywords": [],
 	"author": "",
