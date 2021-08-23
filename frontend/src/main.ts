@@ -1,6 +1,8 @@
-import { createApp } from 'vue';
-import App from './App.vue';
 import 'virtual:windi.css';
+
+import { createApp } from 'vue';
+
+import App from './App.vue';
 import { router } from './router';
 
 const app = createApp(App);
