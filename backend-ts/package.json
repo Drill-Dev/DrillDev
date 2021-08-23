@@ -20,7 +20,6 @@
 		"fastify-multipart": "^4.0.7",
 		"fastify-plugin": "^3.0.0",
 		"fs-extra": "^10.0.0",
-		"p-wait-for": "^3.2.0",
 		"playwright": "^1.14.0",
 		"string-argv": "^0.3.1",
 		"tmp-promise": "^3.0.2",
