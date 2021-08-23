@@ -7,8 +7,9 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'prettier',
+		'plugin:unicorn/recommended',
 	],
-	plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
+	plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'unicorn'],
 	rules: {
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
