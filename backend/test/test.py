@@ -12,7 +12,7 @@ def main():
         except playwright.sync_api.TimeoutError:
             return {"status": "TLE"}
         browser.close()
-	return {"status": "AC"}
+    return {"status": "AC"}
 
 if __name__ == "__main__":
     print(json.dumps(main()))
