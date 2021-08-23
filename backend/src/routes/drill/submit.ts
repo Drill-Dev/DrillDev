@@ -15,6 +15,15 @@ const pump = util.promisify(pipeline);
 
 const docker = new Docker();
 
+// A function for running the Playwright test
+async function runTest(browser: playwright.Browser) {
+	const page = await browser.newPage();
+
+	await page.goto('http://localhost:8080');
+	await page.setDefaultTimeout(3000);
+	await page.click("text='Login'");
+}
+
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
 		// Create a temporary directory
@@ -51,15 +60,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 		await submissionContainer.start();
 
 		try {
-			// A function for running the Playwright test
-			async function runTest(browser: playwright.Browser) {
-				const page = await browser.newPage();
-
-				await page.goto('http://localhost:8080');
-				await page.setDefaultTimeout(3000);
-				await page.click("text='Login'");
-			}
-
 			try {
 				// Give the page 5 seconds to bind to port 8080
 				await promiseRetry(
