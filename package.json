@@ -1,16 +1,20 @@
 {
-  "name": "DrillDev",
-  "version": "1.0.0",
-  "repository": "git@github.com:Drill-Dev/DrillDev.git",
-  "author": "DrillDev <contact@drilldev.com>",
-  "license": "AGPL-3.0",
-  "private": true,
-  "scripts": {
-    "prepare": "husky install"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "husky": "^7.0.1"
-  }
+	"name": "DrillDev",
+	"version": "1.0.0",
+	"repository": "git@github.com:Drill-Dev/DrillDev.git",
+	"author": "DrillDev <contact@drilldev.com>",
+	"license": "AGPL-3.0",
+	"private": true,
+	"scripts": {
+		"prepare": "husky install"
+	},
+	"workspaces": [
+		"frontend",
+		"backend-ts"
+	],
+	"devDependencies": {
+		"@commitlint/cli": "^13.1.0",
+		"@commitlint/config-conventional": "^13.1.0",
+		"husky": "^7.0.1"
+	}
 }
