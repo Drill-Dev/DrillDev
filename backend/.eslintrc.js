@@ -50,6 +50,7 @@ module.exports = {
 		'@typescript-eslint/no-non-null-assertion': 'off',
 		'unicorn/prefer-module': 'off',
 		'unicorn/prefer-node-protocol': 'off',
+		'unicorn/prefer-ternary': 'off',
 	},
 	settings: {
 		'import/resolver': {

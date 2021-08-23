@@ -1,17 +1,17 @@
 import Docker from 'dockerode';
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import fs from 'fs-extra';
 import got from 'got';
 import path from 'path';
-import { pipeline } from 'stream';
-import util from 'util';
 import playwright from 'playwright';
 import promiseRetry from 'promise-retry';
+import { pipeline } from 'stream';
 import stringArgv from 'string-argv';
 import tmp from 'tmp-promise';
+import { promisify } from 'util';
 
 // A promisfied wrapper for easily piping a file read stream into a write stream
-const pump = util.promisify(pipeline);
+const pump = promisify(pipeline);
 
 const docker = new Docker();
 
@@ -22,6 +22,50 @@ async function runTest(browser: playwright.Browser) {
 	await page.goto('http://localhost:8080');
 	await page.setDefaultTimeout(3000);
 	await page.click("text='Login'");
+}
+
+type SubmissionStatus = {
+	status: string;
+};
+
+async function judgeSubmission(): Promise<SubmissionStatus> {
+	try {
+		// Give the page 5 seconds to bind to port 8080
+		await promiseRetry(
+			async (retry) => {
+				const { statusCode } = await got.get('http://localhost:8080');
+				if (!(statusCode >= 200 && statusCode < 400)) {
+					retry(new Error('Could not bind to port.'));
+				}
+			},
+			{ minTimeout: 1000, factor: 1, retries: 5 }
+		);
+	} catch {
+		// Send a TLE if they're taking too long to bind to the port
+		return { status: 'PE' };
+	}
+
+	// Launch a playwright browser
+	const browser = await playwright.chromium.launch();
+	try {
+		// Run the test
+		await runTest(browser);
+
+		// Send an AC status if the test passes without errors
+		return { status: 'AC' };
+	} catch (error) {
+		console.error(error);
+
+		// Send a TLE if the error is a TimeoutError
+		if (error instanceof playwright.errors.TimeoutError) {
+			return { status: 'TLE' };
+		} else {
+			return { status: 'IE' };
+		}
+	} finally {
+		// Close the browser
+		await browser.close();
+	}
 }
 
 export default async function drillSubmitRoute(app: FastifyInstance) {
@@ -58,56 +102,13 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 			await submissionContainer.start();
 
-			try {
-				try {
-					// Give the page 5 seconds to bind to port 8080
-					await promiseRetry(
-						async (retry) => {
-							const { statusCode } = await got.get(
-								'http://localhost:8080'
-							);
-							if (!(statusCode >= 200 && statusCode < 400)) {
-								retry(new Error('Could not bind to port.'));
-							}
-						},
-						{ minTimeout: 1000, factor: 1, retries: 5 }
-					);
-				} catch (e) {
-					// Send a TLE if they're taking too long to bind
-					return await reply.send({
-						status: 'PE',
-					});
-				}
+			const submissionResult = await judgeSubmission();
+			await reply.send(submissionResult);
 
-				// Launch a playwright browser
-				const browser = await playwright.chromium.launch();
-				try {
-					// Run the test
-					await runTest(browser);
-
-					// Send an AC status if the test passes without errors
-					return reply.send({ status: 'AC' });
-				} catch (error) {
-					console.error(error);
-
-					// Send a TLE if the error is a TimeoutError
-					return error instanceof playwright.errors.TimeoutError
-						? reply.send({
-								status: 'TLE',
-						  })
-						: reply.send({
-								status: 'IE',
-						  });
-				} finally {
-					// Close the browser
-					await browser.close();
-				}
-			} finally {
-				// Destroy the submission container
-				await submissionContainer.remove({
-					force: true,
-				});
-			}
+			// Destroy the submission container
+			await submissionContainer.remove({
+				force: true,
+			});
 		}, { unsafeCleanup: true });
 	});
 }
