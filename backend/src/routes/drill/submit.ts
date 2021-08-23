@@ -41,7 +41,7 @@ async function judgeSubmission(): Promise<SubmissionStatus> {
 			{ minTimeout: 1000, factor: 1, retries: 5 }
 		);
 	} catch {
-		// Send a TLE if they're taking too long to bind to the port
+		// Send a PE if they're taking too long to bind to the port
 		return { status: 'PE' };
 	}
 
