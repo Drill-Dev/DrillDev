@@ -100,9 +100,25 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 			});
 			await submissionContainer.start();
 
+			// Create the Playwright container to run the test on
+			const testContainer = await docker.createContainer({
+				Image: 'mcr.microsoft.com/playwright:v1.14.0-focal',
+				Cmd: stringArgv('python /root/test/test.py'),
+				HostConfig: {
+					// Mount the test directory to /root/test
+					Binds: [`../../../../test:/root/test:ro`],
+				},
+			});
+			await testContainer.start();
+
 			try {
-				const submissionResult = await judgeSubmission();
-				await reply.send(submissionResult);
+				const testStream = await testContainer.attach({});
+				const testChunks = [];
+				for await (let chunk of testStream) {
+					testChunks.push(Buffer.from(chunk));
+				}
+				const { success } = JSON.parse(Buffer.concat(testChunks).toString("utf-8"));
+				await reply.send({ success });
 			} finally {
 				// Destroy the submission container
 				await submissionContainer.remove({
