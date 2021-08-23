@@ -24,10 +24,11 @@ async function runTest(browser: playwright.Browser) {
 	await page.click("text='Login'");
 }
 
-async function judgeSubmission(
-	request: FastifyRequest,
-	reply: FastifyReply
-): Promise<void> {
+type SubmissionStatus = {
+	status: string;
+};
+
+async function judgeSubmission(): Promise<SubmissionStatus> {
 	try {
 		// Give the page 5 seconds to bind to port 8080
 		await promiseRetry(
@@ -41,9 +42,7 @@ async function judgeSubmission(
 		);
 	} catch {
 		// Send a TLE if they're taking too long to bind to the port
-		return reply.send({
-			status: 'PE',
-		});
+		return { status: 'PE' };
 	}
 
 	// Launch a playwright browser
@@ -53,18 +52,16 @@ async function judgeSubmission(
 		await runTest(browser);
 
 		// Send an AC status if the test passes without errors
-		return reply.send({ status: 'AC' });
+		return { status: 'AC' };
 	} catch (error) {
 		console.error(error);
 
 		// Send a TLE if the error is a TimeoutError
-		return error instanceof playwright.errors.TimeoutError
-			? reply.send({
-					status: 'TLE',
-			  })
-			: reply.send({
-					status: 'IE',
-			  });
+		if (error instanceof playwright.errors.TimeoutError) {
+			return { status: 'TLE' };
+		} else {
+			return { status: 'IE' };
+		}
 	} finally {
 		// Close the browser
 		await browser.close();
@@ -106,7 +103,8 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 		await submissionContainer.start();
 
-		await judgeSubmission(request, reply);
+		const submissionResult = await judgeSubmission();
+		await reply.send(submissionResult);
 
 		// Destroy the submission container
 		await submissionContainer.remove({
