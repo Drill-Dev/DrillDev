@@ -54,6 +54,12 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 		async function runTest(browser: playwright.Browser) {
 			const page = await browser.newPage();
 
+			await page.goto('http://localhost:8080');
+			await page.setDefaultTimeout(3000);
+			await page.click("text='Login'");
+		}
+
+		try {
 			// Give the page 5 seconds to bind to port 8080
 			await promiseRetry(
 				async (retry) => {
@@ -64,10 +70,11 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 				},
 				{ minTimeout: 1000, factor: 1, retries: 5 }
 			);
-
-			await page.goto('http://localhost:8080');
-			await page.setDefaultTimeout(3000);
-			await page.click("text='Login'");
+		} catch (e) {
+			// Send a TLE if they're taking too long to bind to the port
+			return await reply.send({
+				status: 'PE',
+			});
 		}
 
 		// Launch a playwright browser
