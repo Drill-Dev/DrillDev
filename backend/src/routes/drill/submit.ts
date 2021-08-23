@@ -108,7 +108,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					Cmd: stringArgv('python /root/test/test.py'),
 					HostConfig: {
 						// Mount the test directory to /root/test
-						Binds: [`../../../../test:/root/test:ro`],
+						Binds: [`${__dirname}/../../../../test:/root/test:ro`],
 					},
 				});
 				await testContainer.start();
