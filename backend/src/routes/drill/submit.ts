@@ -1,5 +1,5 @@
 import Docker from 'dockerode';
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
 import got from 'got';
 import path from 'path';
@@ -102,13 +102,15 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 			await submissionContainer.start();
 
-			const submissionResult = await judgeSubmission();
-			await reply.send(submissionResult);
-
-			// Destroy the submission container
-			await submissionContainer.remove({
-				force: true,
-			});
+			try {
+				const submissionResult = await judgeSubmission();
+				await reply.send(submissionResult);
+			} finally {
+				// Destroy the submission container
+				await submissionContainer.remove({
+					force: true,
+				});
+			}
 		}, { unsafeCleanup: true });
 	});
 }
