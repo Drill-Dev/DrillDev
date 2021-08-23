@@ -4,7 +4,7 @@ import fp from 'fastify-plugin';
 
 const prismaClient: FastifyPluginCallback<Record<string, never>> = async (
 	app,
-	options,
+	_options,
 	next
 ) => {
 	if (app.prisma) {
@@ -15,8 +15,8 @@ const prismaClient: FastifyPluginCallback<Record<string, never>> = async (
 
 	await prisma.$connect();
 	app
-		.decorate('prisma', prisma)
-		.decorateRequest('prisma', app.prisma)
+		.decorate('prisma', { getter: () => prisma })
+		.decorateRequest('prisma', { getter: () => app.prisma })
 		.addHook('onClose', async (closedApp, done) => {
 			closedApp.prisma.$disconnect();
 			done();
