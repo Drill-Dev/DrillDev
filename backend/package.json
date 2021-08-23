@@ -4,7 +4,8 @@
 	"description": "The backend for DrillDev.",
 	"main": "index.js",
 	"scripts": {
-		"dev": "ts-node src/app.ts",
+		"start": "ts-node src/app.ts",
+		"dev": "ts-node-dev --respawn --transpile-only src/app.ts",
 		"lint": "eslint --fix --ext .js,.ts src",
 		"generate": "prisma generate",
 		"migrate": "prisma migrate dev"
