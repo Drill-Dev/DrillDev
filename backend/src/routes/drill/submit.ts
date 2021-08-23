@@ -115,11 +115,10 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 				await testContainer.start();
 
 				try {
-					const logStream = await testContainer.attach({
+					const logStream = await testContainer.logs({
 						stdout: true,
 						stderr: true,
-						stream: true,
-						logs: true,
+						follow: true,
 					});
 
 					const logs = await new Promise((resolve) => {
