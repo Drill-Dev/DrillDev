@@ -10,6 +10,7 @@ import stringArgv from 'string-argv';
 import { dir } from 'tmp-promise';
 import util from 'util';
 
+// A promisfied wrapper for easily piping a file read stream into a write stream
 const pump = util.promisify(pipeline);
 
 const docker = new Docker();
