@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
 
-export function getSubmissionResultsRoute(_app: FastifyInstance) {
+export default async function getSubmissionResultsRoute(_app: FastifyInstance) {
 	// TODO
 }

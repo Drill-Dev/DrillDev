@@ -13,7 +13,7 @@ const pump = util.promisify(pipeline);
 
 const docker = new Docker();
 
-export function drillSubmitRoute(app: FastifyInstance) {
+export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
 		const { path: dirPath } = await dir();
 		const data = await request.file();

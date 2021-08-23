@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
 
-export function registerRoute(_app: FastifyInstance) {
+export default async function registerRoute(_app: FastifyInstance) {
 	// TODO
 }

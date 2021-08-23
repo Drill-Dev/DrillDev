@@ -4,7 +4,7 @@
 	"description": "Because Python typing sucks.",
 	"main": "index.js",
 	"scripts": {
-		"dev": "ts-node-dev app.ts",
+		"dev": "ts-node src/app.ts",
 		"lint": "eslint --fix --ext .js,.ts src"
 	},
 	"keywords": [],
@@ -14,6 +14,7 @@
 		"@prisma/client": "^2.29.1",
 		"dockerode": "^3.3.0",
 		"fastify": "^3.20.2",
+		"fastify-autoload": "^3.8.0",
 		"fastify-cors": "^6.0.2",
 		"fastify-multipart": "^4.0.7",
 		"fs-extra": "^10.0.0",

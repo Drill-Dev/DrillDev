@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
 
-export function drilldashUpdateRoute(_app: FastifyInstance) {
+export default async function drilldashUpdateRoute(_app: FastifyInstance) {
 	// TODO
 }

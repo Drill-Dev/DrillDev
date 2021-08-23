@@ -45,7 +45,6 @@ module.exports = {
 		],
 		'no-await-in-loop': 'off',
 		'no-else-return': 'off',
-		'import/no-default-export': 'error',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
 	},
