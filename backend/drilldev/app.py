@@ -21,17 +21,10 @@ def run():
 			page.set_default_timeout(3000)  # 3 seconds
 			try:
 				page.click("text='Login'")
-			except BaseException as e:  # TODO: Replace with TimeoutError later
-				print(repr(e))
-				return f'''
-					<p>Failed</p>
-					<a href="{flask.url_for("root")}">Home</a>
-				'''
+			except playwright.sync_api.TimeoutError:
+				return {"status": "TLE"}
 			browser.close()
-	return f'''
-		<p>Passed</p>
-		<a href="{flask.url_for("root")}">Home</a>
-	'''
+	return {"status": "AC"}
 
 
 if __name__ == "__main__":
