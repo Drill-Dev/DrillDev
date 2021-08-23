@@ -77,20 +77,20 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 			await runTest(browser);
 
 			// Send an AC status if the test passes without errors
-			await reply.send({ status: 'AC' });
+			return reply.send({ status: 'AC' });
 		} catch (e) {
 			console.error(e);
 
 			// Send a TLE if the error is a TimeoutError
 			if (e instanceof playwright.errors.TimeoutError) {
-				await reply.send({
+				return reply.send({
 					status: 'TLE',
 				});
 			}
 
 			// Otherwise, send an IE (internal error)
 			else {
-				await reply.send({
+				return reply.send({
 					status: 'IE',
 				});
 			}
