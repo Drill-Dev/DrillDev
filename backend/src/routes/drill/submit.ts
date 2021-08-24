@@ -126,16 +126,28 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 					const portCheckContainer = await docker.createContainer({
 						Image: 'drilldev-port-check',
-						Cmd: stringArgv(`
-						timeout 5 bash -c 'while [[ ${checkPortsCondition} ]]; do sleep 1; done'
-					`),
+						Cmd: [
+							'timeout',
+							'5',
+							'bash',
+							'-c',
+							`"while [[ ${checkPortsCondition} ]]; do sleep 1; done"`,
+						],
+					});
+					await submissionNetwork.connect({
+						Container: portCheckContainer.id,
 					});
 					await portCheckContainer.start();
 					await portCheckContainer.wait({
-						condition: 'next-exit',
+						condition: 'not-running',
 					});
+					console.log((await portCheckContainer.logs({
+						stderr: true,
+						stdout: true,
+					})).toString());
 
 					const exitCode = (await portCheckContainer.inspect()).State.ExitCode;
+					console.log(exitCode);
 
 					if (exitCode !== 0) {
 						// Send a PE if they're taking too long to bind to the port
@@ -157,7 +169,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					await submissionNetwork.remove({ force: true });
 				}
 			},
-			{ unsafeCleanup: true },
+			{ unsafeCleanup: true }
 		);
 	});
 }
