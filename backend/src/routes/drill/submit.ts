@@ -97,7 +97,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 								Container: judgeContainer.id,
 							});
 
-							const logStream = await testContainer.logs({
+							const logStream = await judgeContainer.logs({
 								stdout: true,
 								stderr: true,
 								follow: true,
@@ -111,7 +111,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 								return Buffer.concat(output).toString("utf-8");
 							})();
 
-							const exitCode = (await testContainer.inspect()).State.ExitCode;
+							const exitCode = (await judgeContainer.inspect()).State.ExitCode;
 							if (exitCode) {
 								console.log(logs);
 								throw new Error(`nonzero exit code ${exitCode}`);
@@ -123,7 +123,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 							await reply.send({ status: "IE" });
 						} finally {
 							// Destroy the judge container
-							await testContainer.remove({ force: true });
+							await judgeContainer.remove({ force: true });
 						}
 					} finally {
 						// Destroy the submission container
