@@ -11,19 +11,27 @@ generator client {
 }
 
 model Account {
-  id           Int    @id @default(autoincrement())
-  email        String @unique
-  username     String @unique
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  username     String       @unique
   passwordHash String
+  submissions  Submission[]
+  drills       Drill[]
 }
 
 model Submission {
-  id             Int    @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
+  submitter      Account @relation(fields: [submitterId], references: [id])
+  submitterId    Int
   submissionCode String
 }
 
 model Drill {
-  id             Int    @id @default(autoincrement())
-  judgingCode    String
-  judgingOptions Json
+  id              Int      @id @default(autoincrement())
+  creator         Account  @relation(fields: [creatorId], references: [id])
+  creatorId       Int
+  instructions    String
+  judgingCode     String
+  judgingExecutor String
+  exposedPorts    String[]
 }
