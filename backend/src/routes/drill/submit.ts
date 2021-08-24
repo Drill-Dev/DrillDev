@@ -14,9 +14,72 @@ const pump = promisify(pipeline);
 
 const docker = new Docker();
 
+type SubmissionResult = {
+	status: string;
+};
+
+async function judgeSubmission({
+	submissionNetwork,
+	submissionId,
+}: {
+	submissionNetwork: Docker.Network;
+	submissionId: string;
+}): Promise<SubmissionResult> {
+	// Create the Playwright container to run the test on
+	const judgeContainer = await docker.createContainer({
+		Image: 'apify/actor-node-playwright-chrome:14',
+		Cmd: stringArgv('node /home/myuser/test/test.js'),
+		Env: [`HOST=submission_${submissionId}`],
+		HostConfig: {
+			// Mount the test directory to /root/test
+			Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
+		},
+		Tty: true,
+	});
+
+	try {
+		await judgeContainer.start();
+
+		// Connect the judge container to the submission network
+		await submissionNetwork.connect({
+			Container: judgeContainer.id,
+		});
+
+		const logStream = await judgeContainer.logs({
+			stdout: true,
+			stderr: true,
+			follow: true,
+		});
+
+		const logs = await (async () => {
+			const output = [];
+			for await (const data of logStream as AsyncIterable<Buffer>) {
+				output.push(data);
+			}
+			return Buffer.concat(output).toString('utf-8');
+		})();
+
+		const exitCode = (await judgeContainer.inspect()).State.ExitCode;
+
+		// If the test passed
+		if (exitCode === 0) {
+			return { status: 'AC' };
+		} else {
+			console.log(logs);
+			throw new Error(`nonzero exit code ${exitCode}`);
+		}
+	} catch (error) {
+		console.log(error);
+		return { status: 'IE' };
+	} finally {
+		// Destroy the test container
+		await judgeContainer.remove({ force: true });
+	}
+}
+
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
-		const submissionId = Math.random() * 1000;
+		const submissionId = Math.floor(Math.random() * 1000).toString();
 
 		// Create a temporary directory for the submission
 		return await tmp.withDir(
@@ -34,11 +97,12 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 				await docker.getImage('python:3.8');
 
 				const submissionNetwork = await docker.createNetwork({
-					Name: `submission-${submissionId}`,
+					Name: `submission-network-${submissionId}`,
 				});
 
 				const submissionContainer = await docker.createContainer({
 					Image: 'python:3.8',
+					name: `submission_${submissionId}`,
 					Cmd: stringArgv('python -m http.server -d /root/html 80'),
 					ExposedPorts: { '80/tcp': {} },
 					HostConfig: {
@@ -57,7 +121,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 				await submissionContainer.start();
 
 				try {
-
 					// Connect the submission container to the submission network
 					await submissionNetwork.connect({
 						Container: submissionContainer.id,
@@ -76,65 +139,19 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						);
 					} catch {
 						// Send a PE if they're taking too long to bind to the port
-						return await reply.send({ status: 'PE' });
+						return reply.send({ status: 'PE' });
 					}
 
-					// Create the Playwright container to run the test on
-					const judgeContainer = await docker.createContainer({
-						Image: 'apify/actor-node-playwright-chrome:14',
-						Cmd: stringArgv('node /home/myuser/test/test.js'),
-						Env: [
-							// "NODE_PATH=/home/myuser/node_modules",
-						],
-						HostConfig: {
-							// Mount the test directory to /root/test
-							Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
-						},
-						Tty: true,
+					console.log('judging')
+					const result = await judgeSubmission({
+						submissionNetwork,
+						submissionId,
 					});
-					await judgeContainer.start();
-
-					try {
-						// Connect the judge container to the submission network
-						await submissionNetwork.connect({
-							Container: judgeContainer.id,
-						});
-
-						const logStream = await testContainer.logs({
-							stdout: true,
-							stderr: true,
-							follow: true,
-						});
-
-						const logs = await (async () => {
-							const output = [];
-							for await (const data of logStream as AsyncIterable<Buffer>) {
-								output.push(data);
-							}
-							return Buffer.concat(output).toString("utf-8");
-						})();
-
-						const exitCode = (await testContainer.inspect()).State.ExitCode;
-						if (exitCode) {
-							console.log(logs);
-							throw new Error(`nonzero exit code ${exitCode}`);
-						}
-						const { status } = JSON.parse(logs);
-						await reply.send({ status });
-					} catch (error) {
-						console.log(error);
-						await reply.send({ status: "IE" });
-					} finally {
-						// Destroy the test container
-						await testContainer.remove({
-							force: true,
-						});
-					}
+					console.log('res', result)
+					return reply.send(result);
 				} finally {
 					// Destroy the submission container
-					await submissionContainer.remove({
-						force: true,
-					});
+					await submissionContainer.remove({ force: true });
 					await submissionNetwork.remove({ force: true });
 				}
 			},
