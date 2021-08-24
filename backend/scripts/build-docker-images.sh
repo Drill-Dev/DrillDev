@@ -1,5 +1,3 @@
-
-
 dockerfiles_path="$(dirname "$0")/../dockerfiles"
 
 docker build -t drilldev-js-playwright:latest - < $dockerfiles_path/js-playwright.Dockerfile

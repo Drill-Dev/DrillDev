@@ -1,4 +1,3 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
-RUN apk add --update curl bash && \
-		rm -rf /var/cache/apk/*
+RUN apt-get update -y && apt-get install -y curl

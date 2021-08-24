@@ -117,7 +117,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					const ports = ['8080'];
 
 					const createBashPortCheckString = (port: string) => {
-						return `"$(curl -o /dev/null -w '%{http_code}' subimission_${submissionId}:${port})" != '200'`;
+						return `"$(curl -o /dev/null -w '%{http_code}' submission_${submissionId}:${port})" != '200'`;
 					};
 
 					const checkPortsCondition = ports
@@ -128,7 +128,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						Image: 'drilldev-port-check',
 						Cmd: [
 							'timeout',
-							'-t',
 							'5',
 							'bash',
 							'-c',
