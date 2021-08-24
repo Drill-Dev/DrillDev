@@ -9,4 +9,4 @@ RUN apt install nodejs
 
 RUN npm install --global playwright
 RUN npx playwright install
-ENV NODE_PATH=/usr/local/lib/node_modules
+ENV NODE_PATH=/usr/lib/node_modules
