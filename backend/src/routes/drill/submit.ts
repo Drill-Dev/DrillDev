@@ -141,7 +141,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						const logs = await (async () => {
 							const output: string[] = [];
 							logStream.setEncoding('utf-8');
-							for await (const data of logStream) {
+							for await (const data of logStream as AsyncIterable<string>) {
 								output.push(data);
 							}
 							return output.join('');
