@@ -1,9 +1,7 @@
 import Docker from 'dockerode';
 import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
-import got from 'got';
 import path from 'path';
-import promiseRetry from 'promise-retry';
 import { pipeline } from 'stream';
 import stringArgv from 'string-argv';
 import tmp from 'tmp-promise';
@@ -108,36 +106,41 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					HostConfig: {
 						// Mount the submission directory to /root/html
 						Binds: [`${submissionPath}:/root/html:ro`],
-						PortBindings: {
-							'80/tcp': [
-								{
-									HostPort: '8080',
-								},
-							],
-						},
 					},
 				});
 
-				// Connect the submission container to the submission network
-				await submissionNetwork.connect({
-					Container: submissionContainer.id,
-				});
-
-				await submissionContainer.start();
-
 				try {
-					try {
-						// Give the page 5 seconds to bind to port 8080
-						await promiseRetry(
-							async (retry) => {
-								const { statusCode } = await got.get('http://localhost:8080');
-								if (!(statusCode >= 200 && statusCode < 400)) {
-									retry(new Error('Could not bind to port.'));
-								}
-							},
-							{ minTimeout: 1000, factor: 1, retries: 5 }
-						);
-					} catch {
+					// Connect the submission container to the submission network
+					await submissionNetwork.connect({
+						Container: submissionContainer.id,
+					});
+
+					await submissionContainer.start();
+
+					const ports = ['80'];
+
+					const createBashPortCheckString = (port: string) => {
+						return `"$(curl -s -o /dev/null -w ''%{http_code}'' submission_${submissionId}:${port})" != '200'`;
+					};
+
+					const checkPortsCondition = ports
+						.map((port) => createBashPortCheckString(port))
+						.join(' || ');
+
+					const portCheckContainer = await docker.createContainer({
+						Image: 'drilldev-port-check',
+						Cmd: stringArgv(`
+						timeout 5 bash -c 'while [[ ${checkPortsCondition} ]]; do sleep 1; done'
+					`),
+					});
+					await portCheckContainer.start();
+					await portCheckContainer.wait({
+						condition: 'next-exit',
+					});
+
+					const exitCode = (await portCheckContainer.inspect()).State.ExitCode;
+
+					if (exitCode !== 0) {
 						// Send a PE if they're taking too long to bind to the port
 						return reply.send({ status: 'PE' });
 					}
@@ -146,6 +149,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						submissionNetwork,
 						submissionId,
 					});
+
 					return reply.send(result);
 				} finally {
 					// Destroy the submission container
