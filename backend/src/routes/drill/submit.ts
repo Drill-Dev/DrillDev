@@ -1,5 +1,4 @@
 import Docker from 'dockerode';
-
 import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
 import got from 'got';
