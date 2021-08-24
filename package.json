@@ -24,6 +24,7 @@
 		"stylelint": "^13.13.1"
 	},
 	"lint-staged": {
-		"*.{js,ts,vue}": ["yarn workspaces run lint", "yarn workspaces run prettier"]
+		"frontend/**/*.{js,ts,vue}": ["yarn workspace frontend lint", "yarn workspace frontend prettier"],
+		"backend/**/*.{js,ts,vue}": ["yarn workspace backend lint", "yarn workspace backend prettier"]
 	}
 }
