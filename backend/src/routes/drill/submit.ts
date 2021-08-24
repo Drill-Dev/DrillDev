@@ -31,7 +31,7 @@ async function judgeSubmission({
 		Cmd: stringArgv('node /home/myuser/test/test.js'),
 		Env: [`HOST=submission_${submissionId}`],
 		HostConfig: {
-			// Mount the test directory to /root/test
+			// We're mounting to /home/myuser because it's what the container allows
 			Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
 		},
 		Tty: true,
@@ -106,11 +106,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						// Mount the submission directory to /root/html
 						Binds: [`${submissionPath}:/root/html:ro`],
 						PortBindings: {
-							'80/tcp': [
-								{
-									HostPort: '8080',
-								},
-							],
+							'80/tcp': [ { HostPort: '8080' } ],
 						},
 					},
 				});
@@ -153,7 +149,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					await submissionNetwork.remove({ force: true });
 				}
 			},
-			{ unsafeCleanup: true }
+			{ unsafeCleanup: true },
 		);
 	});
 }
