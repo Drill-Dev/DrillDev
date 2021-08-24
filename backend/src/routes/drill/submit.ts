@@ -131,7 +131,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 							'5',
 							'bash',
 							'-c',
-							`"while [[ ${checkPortsCondition} ]]; do sleep 1; done"`,
+							`while [[ ${checkPortsCondition} ]]; do sleep 1; done`,
 						],
 					});
 					await submissionNetwork.connect({
@@ -141,10 +141,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					await portCheckContainer.wait({
 						condition: 'not-running',
 					});
-					console.log((await portCheckContainer.logs({
-						stderr: true,
-						stdout: true,
-					})).toString());
 
 					const exitCode = (await portCheckContainer.inspect()).State.ExitCode;
 					console.log(exitCode);
