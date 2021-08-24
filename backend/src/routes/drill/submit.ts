@@ -3,7 +3,6 @@ import { FastifyInstance } from 'fastify';
 import fs from 'fs-extra';
 import got from 'got';
 import path from 'path';
-import playwright from 'playwright';
 import promiseRetry from 'promise-retry';
 import { pipeline } from 'stream';
 import stringArgv from 'string-argv';
@@ -14,59 +13,6 @@ import { promisify } from 'util';
 const pump = promisify(pipeline);
 
 const docker = new Docker();
-
-// A function for running the Playwright test
-async function runTest(browser: playwright.Browser) {
-	const page = await browser.newPage();
-
-	await page.goto('http://localhost:8080');
-	await page.setDefaultTimeout(3000);
-	await page.click("text='Login'");
-}
-
-type SubmissionStatus = {
-	status: string;
-};
-
-async function _judgeSubmission(): Promise<SubmissionStatus> {
-	try {
-		// Give the page 5 seconds to bind to port 8080
-		await promiseRetry(
-			async (retry) => {
-				const { statusCode } = await got.get('http://localhost:8080');
-				if (!(statusCode >= 200 && statusCode < 400)) {
-					retry(new Error('Could not bind to port.'));
-				}
-			},
-			{ minTimeout: 1000, factor: 1, retries: 5 }
-		);
-	} catch {
-		// Send a PE if they're taking too long to bind to the port
-		return { status: 'PE' };
-	}
-
-	// Launch a playwright browser
-	const browser = await playwright.chromium.launch();
-	try {
-		// Run the test
-		await runTest(browser);
-
-		// Send an AC status if the test passes without errors
-		return { status: 'AC' };
-	} catch (error) {
-		console.error(error);
-
-		// Send a TLE if the error is a TimeoutError
-		if (error instanceof playwright.errors.TimeoutError) {
-			return { status: 'TLE' };
-		} else {
-			return { status: 'IE' };
-		}
-	} finally {
-		// Close the browser
-		await browser.close();
-	}
-}
 
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
@@ -110,58 +56,85 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 				await submissionContainer.start();
 
-				// Connect the submission container to the submission network
-				await submissionNetwork.connect({
-					Container: submissionContainer.id,
-				});
-
-				// Create the Playwright container to run the test on
-				const judgeContainer = await docker.createContainer({
-					Image: 'mcr.microsoft.com/playwright:v1.14.0-focal',
-					Cmd: stringArgv('python /root/test/test.py'),
-					HostConfig: {
-						// Mount the test directory to /root/test
-						Binds: [`${__dirname}/../../../test:/root/test:ro`],
-					},
-					Tty: true,
-				});
-				await judgeContainer.start();
-
-				// Connect the judge container to the submission network
-				await submissionNetwork.connect({
-					Container: judgeContainer.id,
-				});
-
 				try {
-					const logStream = await judgeContainer.logs({
-						stdout: true,
-						stderr: true,
-						follow: true,
+
+					// Connect the submission container to the submission network
+					await submissionNetwork.connect({
+						Container: submissionContainer.id,
 					});
 
-					const logs = await (async () => {
-						const output: string[] = [];
-						logStream.setEncoding('utf-8');
-						for await (const data of logStream) {
-							output.push(data.toString());
-						}
-						return output.join('');
-					})();
-
-					const exitCode = (await judgeContainer.inspect()).State.ExitCode;
-					if (exitCode) {
-						throw new Error(`nonzero exit code ${exitCode}`);
+					try {
+						// Give the page 5 seconds to bind to port 8080
+						await promiseRetry(
+							async (retry) => {
+								const { statusCode } = await got.get('http://localhost:8080');
+								if (!(statusCode >= 200 && statusCode < 400)) {
+									retry(new Error('Could not bind to port.'));
+								}
+							},
+							{ minTimeout: 1000, factor: 1, retries: 5 }
+						);
+					} catch {
+						// Send a PE if they're taking too long to bind to the port
+						return await reply.send({ status: 'PE' });
 					}
 
-					const { status } = JSON.parse(logs);
-					await reply.send({ status });
-				} catch (error) {
-					console.log(error);
-					await reply.send({ status: 'IE' });
+					// Create the Playwright container to run the test on
+					const judgeContainer = await docker.createContainer({
+						Image: 'apify/actor-node-playwright-chrome:14',
+						Cmd: stringArgv('node /home/myuser/test/test.js'),
+						Env: [
+							// "NODE_PATH=/home/myuser/node_modules",
+						],
+						HostConfig: {
+							// Mount the test directory to /root/test
+							Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
+						},
+						Tty: true,
+					});
+					await judgeContainer.start();
+
+					try {
+						// Connect the judge container to the submission network
+						await submissionNetwork.connect({
+							Container: judgeContainer.id,
+						});
+
+						const logStream = await testContainer.logs({
+							stdout: true,
+							stderr: true,
+							follow: true,
+						});
+
+						const logs = await (async () => {
+							const output = [];
+							for await (const data of logStream as AsyncIterable<Buffer>) {
+								output.push(data);
+							}
+							return Buffer.concat(output).toString("utf-8");
+						})();
+
+						const exitCode = (await testContainer.inspect()).State.ExitCode;
+						if (exitCode) {
+							console.log(logs);
+							throw new Error(`nonzero exit code ${exitCode}`);
+						}
+						const { status } = JSON.parse(logs);
+						await reply.send({ status });
+					} catch (error) {
+						console.log(error);
+						await reply.send({ status: "IE" });
+					} finally {
+						// Destroy the test container
+						await testContainer.remove({
+							force: true,
+						});
+					}
 				} finally {
-					// Destroy the submission and test containers
-					await submissionContainer.remove({ force: true });
-					await judgeContainer.remove({ force: true });
+					// Destroy the submission container
+					await submissionContainer.remove({
+						force: true,
+					});
 					await submissionNetwork.remove({ force: true });
 				}
 			},
