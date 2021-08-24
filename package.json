@@ -1,5 +1,5 @@
 {
-	"name": "DrillDev",
+	"name": "drilldev",
 	"version": "1.0.0",
 	"repository": "git@github.com:Drill-Dev/DrillDev.git",
 	"author": "DrillDev <contact@drilldev.com>",
@@ -24,7 +24,15 @@
 		"stylelint": "^13.13.1"
 	},
 	"lint-staged": {
-		"frontend/**/*.{js,ts,vue}": ["yarn workspace frontend lint", "yarn workspace frontend prettier"],
-		"backend/**/*.{js,ts}": ["yarn workspace backend lint", "yarn workspace backend prettier"]
+		"frontend/**/*.{js,ts,vue}": [
+			"yarn workspace frontend lint",
+			"yarn workspace frontend prettier",
+			"git add"
+		],
+		"backend/**/*.{js,ts}": [
+			"yarn workspace backend lint",
+			"yarn workspace backend prettier",
+			"git add"
+		]
 	}
 }
