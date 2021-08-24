@@ -28,7 +28,7 @@ type SubmissionStatus = {
 	status: string;
 };
 
-async function judgeSubmission(): Promise<SubmissionStatus> {
+async function _judgeSubmission(): Promise<SubmissionStatus> {
 	try {
 		// Give the page 5 seconds to bind to port 8080
 		await promiseRetry(

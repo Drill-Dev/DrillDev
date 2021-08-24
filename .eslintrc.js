@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 module.exports = {
 	extends: [
 		'eslint:recommended',
@@ -47,5 +49,6 @@ module.exports = {
 		'unicorn/prefer-module': 'off',
 		'unicorn/prefer-node-protocol': 'off',
 		'unicorn/prefer-ternary': 'off',
+		'unicorn/prevent-abbreviations': 'off',
 	},
 };
