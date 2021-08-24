@@ -70,6 +70,8 @@ async function _judgeSubmission(): Promise<SubmissionStatus> {
 
 export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
+		const submissionId = Math.random() * 1000;
+
 		// Create a temporary directory for the submission
 		return await tmp.withDir(
 			async ({ path: submissionPath }) => {
@@ -84,6 +86,11 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 
 				// Create the python container to run the submission on
 				await docker.getImage('python:3.8');
+
+				const submissionNetwork = await docker.createNetwork({
+					Name: `submission-${submissionId}`,
+				});
+
 				const submissionContainer = await docker.createContainer({
 					Image: 'python:3.8',
 					Cmd: stringArgv('python -m http.server -d /root/html 80'),
@@ -100,10 +107,16 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						},
 					},
 				});
+
 				await submissionContainer.start();
 
+				// Connect the submission container to the submission network
+				await submissionNetwork.connect({
+					Container: submissionContainer.id,
+				});
+
 				// Create the Playwright container to run the test on
-				const testContainer = await docker.createContainer({
+				const judgeContainer = await docker.createContainer({
 					Image: 'mcr.microsoft.com/playwright:v1.14.0-focal',
 					Cmd: stringArgv('python /root/test/test.py'),
 					HostConfig: {
@@ -112,10 +125,15 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					},
 					Tty: true,
 				});
-				await testContainer.start();
+				await judgeContainer.start();
+
+				// Connect the judge container to the submission network
+				await submissionNetwork.connect({
+					Container: judgeContainer.id,
+				});
 
 				try {
-					const logStream = await testContainer.logs({
+					const logStream = await judgeContainer.logs({
 						stdout: true,
 						stderr: true,
 						follow: true,
@@ -130,7 +148,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						return output.join('');
 					})();
 
-					const exitCode = (await testContainer.inspect()).State.ExitCode;
+					const exitCode = (await judgeContainer.inspect()).State.ExitCode;
 					if (exitCode) {
 						throw new Error(`nonzero exit code ${exitCode}`);
 					}
@@ -142,12 +160,9 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					await reply.send({ status: 'IE' });
 				} finally {
 					// Destroy the submission and test containers
-					await submissionContainer.remove({
-						force: true,
-					});
-					await testContainer.remove({
-						force: true,
-					});
+					await submissionContainer.remove({ force: true });
+					await judgeContainer.remove({ force: true });
+					await submissionNetwork.remove({ force: true });
 				}
 			},
 			{ unsafeCleanup: true }
