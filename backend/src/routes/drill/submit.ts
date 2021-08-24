@@ -25,12 +25,12 @@ async function judgeSubmission({
 }): Promise<SubmissionResult> {
 	// Create the Playwright container to run the test on
 	const judgeContainer = await docker.createContainer({
-		Image: 'apify/actor-node-playwright-chrome:14',
-		Cmd: stringArgv('node /home/myuser/test/test.js'),
+		Image: 'drilldev-js-playwright:latest',
+		Cmd: stringArgv('node /root/test/test.js'),
 		Env: [`HOST=submission_${submissionId}`],
 		HostConfig: {
 			// We're mounting to /home/myuser because it's what the container allows
-			Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
+			Binds: [`${__dirname}/../../../test:/root/test:ro`],
 		},
 		Tty: true,
 	});
