@@ -37,13 +37,13 @@ async function judgeSubmission({
 		Tty: true,
 	});
 
+	// Connect the judge container to the submission network
+	await submissionNetwork.connect({
+		Container: judgeContainer.id,
+	});
+
 	try {
 		await judgeContainer.start();
-
-		// Connect the judge container to the submission network
-		await submissionNetwork.connect({
-			Container: judgeContainer.id,
-		});
 
 		const logStream = await judgeContainer.logs({
 			stdout: true,
@@ -118,14 +118,14 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					},
 				});
 
+				// Connect the submission container to the submission network
+				await submissionNetwork.connect({
+					Container: submissionContainer.id,
+				});
+
 				await submissionContainer.start();
 
 				try {
-					// Connect the submission container to the submission network
-					await submissionNetwork.connect({
-						Container: submissionContainer.id,
-					});
-
 					try {
 						// Give the page 5 seconds to bind to port 8080
 						await promiseRetry(
@@ -142,12 +142,12 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						return reply.send({ status: 'PE' });
 					}
 
-					console.log('judging')
+					console.log('judging');
 					const result = await judgeSubmission({
 						submissionNetwork,
 						submissionId,
 					});
-					console.log('res', result)
+					console.log('res', result);
 					return reply.send(result);
 				} finally {
 					// Destroy the submission container
