@@ -31,6 +31,9 @@
 		"backend/**/*.{js,ts}": [
 			"yarn workspace backend lint",
 			"yarn workspace backend prettier"
-		]
+		],
+		"*.js": "eslint --cache --fix",
+		"*.css": "stylelint --fix",
+		"*.{js,css,md}": "prettier --write"
 	}
 }
