@@ -65,7 +65,7 @@ async function judgeSubmission({
 		if (exitCode === 0) {
 			return { status: 'AC' };
 		} else {
-			console.log(logs);
+			console.error(logs);
 			return { status: 'WA' };
 		}
 	} finally {
