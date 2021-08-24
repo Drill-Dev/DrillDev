@@ -1,5 +1,4 @@
 module.exports = {
-	extends: ['../.eslintrc.js'],
 	overrides: [
 		{
 			files: ['*.vue', '*.d.ts'],
@@ -20,9 +19,18 @@ module.exports = {
 		node: true,
 		browser: true,
 	},
-	extends: ['plugin:vue/vue3-recommended'],
+	extends: ['../.eslintrc.js', 'plugin:vue/vue3-recommended'],
 	rules: {
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+		'unicorn/filename-case': [
+			'error',
+			{
+				cases: {
+					pascalCase: true,
+					kebabCase: true,
+				},
+			},
+		],
 	},
 	settings: {
 		'import/resolver': {
