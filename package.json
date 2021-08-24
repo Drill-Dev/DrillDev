@@ -26,13 +26,11 @@
 	"lint-staged": {
 		"frontend/**/*.{js,ts,vue}": [
 			"yarn workspace frontend lint",
-			"yarn workspace frontend prettier",
-			"git add"
+			"yarn workspace frontend prettier"
 		],
 		"backend/**/*.{js,ts}": [
 			"yarn workspace backend lint",
-			"yarn workspace backend prettier",
-			"git add"
+			"yarn workspace backend prettier"
 		]
 	}
 }
