@@ -66,11 +66,8 @@ async function judgeSubmission({
 			return { status: 'AC' };
 		} else {
 			console.log(logs);
-			throw new Error(`nonzero exit code ${exitCode}`);
+			return { status: 'WA' };
 		}
-	} catch (error) {
-		console.log(error);
-		return { status: 'IE' };
 	} finally {
 		// Destroy the test container
 		await judgeContainer.remove({ force: true });
@@ -149,6 +146,9 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					});
 					console.log('res', result);
 					return reply.send(result);
+				} catch (error) {
+					console.log(error);
+					return { status: 'IE' };
 				} finally {
 					// Destroy the submission container
 					await submissionContainer.remove({ force: true });
