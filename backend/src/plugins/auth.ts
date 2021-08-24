@@ -5,7 +5,7 @@ async function authPlugin() {
 }
 
 const fastifyAuthPlugin = fp(authPlugin, {
-	name: 'fastify-prisma-client',
+	name: 'fastify-auth-plugin',
 });
 
 export default fastifyAuthPlugin;
