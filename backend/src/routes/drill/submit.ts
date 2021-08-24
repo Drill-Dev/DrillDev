@@ -125,7 +125,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						const output: string[] = [];
 						logStream.setEncoding('utf-8');
 						for await (const data of logStream) {
-							output.push(data);
+							output.push(data.toString());
 						}
 						return output.join('');
 					})();
@@ -139,7 +139,7 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					await reply.send({ status });
 				} catch (error) {
 					console.log(error);
-					await reply.send({ status: "IE" });
+					await reply.send({ status: 'IE' });
 				} finally {
 					// Destroy the submission and test containers
 					await submissionContainer.remove({
