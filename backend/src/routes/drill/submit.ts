@@ -30,111 +30,107 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					fs.createWriteStream(path.join(submissionPath, 'index.html'))
 				);
 
-				// Create the python container to run the submission on
-				await docker.getImage('python:3.8');
-
 				const submissionNetwork = await docker.createNetwork({
 					Name: `submission-${submissionId}`,
 				});
 
-				const submissionContainer = await docker.createContainer({
-					Image: 'python:3.8',
-					Cmd: stringArgv('python -m http.server -d /root/html 80'),
-					ExposedPorts: { '80/tcp': {} },
-					HostConfig: {
-						// Mount the submission directory to /root/html
-						Binds: [`${submissionPath}:/root/html:ro`],
-						PortBindings: {
-							'80/tcp': [
-								{
-									HostPort: '8080',
-								},
-							],
-						},
-					},
-				});
-
-				await submissionContainer.start();
-
 				try {
-
-					// Connect the submission container to the submission network
-					await submissionNetwork.connect({
-						Container: submissionContainer.id,
-					});
-
-					try {
-						// Give the page 5 seconds to bind to port 8080
-						await promiseRetry(
-							async (retry) => {
-								const { statusCode } = await got.get('http://localhost:8080');
-								if (!(statusCode >= 200 && statusCode < 400)) {
-									retry(new Error('Could not bind to port.'));
-								}
-							},
-							{ minTimeout: 1000, factor: 1, retries: 5 }
-						);
-					} catch {
-						// Send a PE if they're taking too long to bind to the port
-						return await reply.send({ status: 'PE' });
-					}
-
-					// Create the Playwright container to run the test on
-					const judgeContainer = await docker.createContainer({
-						Image: 'apify/actor-node-playwright-chrome:14',
-						Cmd: stringArgv('node /home/myuser/test/test.js'),
-						Env: [
-							// "NODE_PATH=/home/myuser/node_modules",
-						],
+					// Create the python container to run the submission on
+					const submissionContainer = await docker.createContainer({
+						Image: 'python:3.8',
+						Cmd: stringArgv('python -m http.server -d /root/html 80'),
+						ExposedPorts: { '80/tcp': {} },
 						HostConfig: {
-							// Mount the test directory to /root/test
-							Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
+							// Mount the submission directory to /root/html
+							Binds: [`${submissionPath}:/root/html:ro`],
+							PortBindings: {
+								'80/tcp': [
+									{
+										HostPort: '8080',
+									},
+								],
+							},
 						},
-						Tty: true,
 					});
-					await judgeContainer.start();
+					await submissionContainer.start();
 
 					try {
-						// Connect the judge container to the submission network
+						// Connect the submission container to the submission network
 						await submissionNetwork.connect({
-							Container: judgeContainer.id,
+							Container: submissionContainer.id,
 						});
 
-						const logStream = await testContainer.logs({
-							stdout: true,
-							stderr: true,
-							follow: true,
-						});
-
-						const logs = await (async () => {
-							const output = [];
-							for await (const data of logStream as AsyncIterable<Buffer>) {
-								output.push(data);
-							}
-							return Buffer.concat(output).toString("utf-8");
-						})();
-
-						const exitCode = (await testContainer.inspect()).State.ExitCode;
-						if (exitCode) {
-							console.log(logs);
-							throw new Error(`nonzero exit code ${exitCode}`);
+						try {
+							// Give the page 5 seconds to bind to port 8080
+							await promiseRetry(
+								async (retry) => {
+									const { statusCode } = await got.get('http://localhost:8080');
+									if (!(statusCode >= 200 && statusCode < 400)) {
+										retry(new Error('Could not bind to port.'));
+									}
+								},
+								{ minTimeout: 1000, factor: 1, retries: 5 }
+							);
+						} catch {
+							// Send a PE if they're taking too long to bind to the port
+							return await reply.send({ status: 'PE' });
 						}
-						const { status } = JSON.parse(logs);
-						await reply.send({ status });
-					} catch (error) {
-						console.log(error);
-						await reply.send({ status: "IE" });
-					} finally {
-						// Destroy the test container
-						await testContainer.remove({
-							force: true,
+
+						// Create the Playwright container to run the test on
+						const judgeContainer = await docker.createContainer({
+							Image: 'apify/actor-node-playwright-chrome:14',
+							Cmd: stringArgv('node /home/myuser/test/test.js'),
+							Env: [
+								// "NODE_PATH=/home/myuser/node_modules",
+							],
+							HostConfig: {
+								// Mount the test directory to /root/test
+								Binds: [`${__dirname}/../../../test:/home/myuser/test:ro`],
+							},
+							Tty: true,
 						});
+						await judgeContainer.start();
+
+						try {
+							// Connect the judge container to the submission network
+							await submissionNetwork.connect({
+								Container: judgeContainer.id,
+							});
+
+							const logStream = await testContainer.logs({
+								stdout: true,
+								stderr: true,
+								follow: true,
+							});
+
+							const logs = await (async () => {
+								const output = [];
+								for await (const data of logStream as AsyncIterable<Buffer>) {
+									output.push(data);
+								}
+								return Buffer.concat(output).toString("utf-8");
+							})();
+
+							const exitCode = (await testContainer.inspect()).State.ExitCode;
+							if (exitCode) {
+								console.log(logs);
+								throw new Error(`nonzero exit code ${exitCode}`);
+							}
+							const { status } = JSON.parse(logs);
+							await reply.send({ status });
+						} catch (error) {
+							console.log(error);
+							await reply.send({ status: "IE" });
+						} finally {
+							// Destroy the judge container
+							await testContainer.remove({ force: true });
+						}
+					} finally {
+						// Destroy the submission container
+						await submissionContainer.remove({ force: true });
 					}
 				} finally {
-					// Destroy the submission container
-					await submissionContainer.remove({
-						force: true,
-					});
+					// Destroy the submission network
 					await submissionNetwork.remove({ force: true });
 				}
 			},
