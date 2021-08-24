@@ -28,6 +28,6 @@ app.listen(5000, (error, address) => {
 		console.error(error);
 		throw error;
 	} else {
-		console.log(`Listening at ${address}`);
+		console.info(`Listening at ${address}`);
 	}
 });

@@ -139,12 +139,10 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 						return reply.send({ status: 'PE' });
 					}
 
-					console.log('judging');
 					const result = await judgeSubmission({
 						submissionNetwork,
 						submissionId,
 					});
-					console.log('res', result);
 					return reply.send(result);
 				} catch (error) {
 					console.log(error);
