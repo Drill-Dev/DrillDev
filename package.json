@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"repository": "git@github.com:Drill-Dev/DrillDev.git",
 	"author": "DrillDev <contact@drilldev.com>",
-	"license": "AGPL-3.0",
+	"license": "UNLICENSED",
 	"private": true,
 	"scripts": {
 		"dev:backend": "yarn workspace backend dev",
