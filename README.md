@@ -2,7 +2,7 @@
 
 **Drill** **dev**elopment.
 
-DrillDev is a site for practicing and measuring your software development abilities. As software developers, we aren't really concerned if you can implement a red-black tree or if you understand the Fast Fourier Transform. We want to measure your ability to develop apps that end users can use. While there are other metrics you can use to prove your skill in software development, such as internships and hackathon projects, they're ultimately impossible to compare between people, making it hard to see exactly how you rank among the millions of other software developers.
+DrillDev is a site for practicing and measuring your software development abilities. As software developers, we aren't really concerned if you can implement a red-black tree or if you understand the Fast Fourier Transform. We want to measure your ability to develop apps that end users can use. While there are other metrics you can use to prove your skill in software development, such as internships and hackathon projects, they're ultimately impossible to compare between people, making it hard to see exactly how you rank against other software developers.
 
 That's why we're creating DrillDev.
 
@@ -93,6 +93,6 @@ Happy drilling!
 - Extremely easy to integrate into a DevOps workflow
 - Highly scalable, which will prove useful when we need to scale DrillDev servers during times of high-usage (e.g. before a popular drilldash)
 
-## DrillDev Current & Future Plans
+## Current & Future Plans
 
 Currently, we're focusing on testing web applications using browser automation tools like Playwright. The submission code would bind to a port and render a webpage that would be subsequently tested using these browser automation tools. However, we're hoping to expand the scope of DrillDev in the future to testing applications like desktop applications to Android and iOS apps (after all, they still fall under the category of software development). This is a major reason why we're committed to developing DrillDev in the open; we believe that the community's breadth of knowledge in various different platforms will help grow the scope of DrillDev beyond what a small team could do.
