@@ -14,36 +14,84 @@ Happy drilling!
 
 ### Frontend
 
-**Build tool:** [Vite](https://vitejs.org)  
- - Vite's extremely fast development and build times help skyrocket developer productivity.
-\
-**JavaScript Framework:** [Vue 3](https://https://v3.vuejs.org/) - Vue is the easiest JavaScript framework to learn (out of the big 4) and it's SFC (single file components) syntax is much cleaner and more approachable than alternatives like JSX.
-\
-**CSS Framework:** [TailwindCSS](https://tailwindcss.com) - Makes it much easier and effortless to style components, as well as removes the need to think of arbitrary class names.
-\
-**HTML Preprocessor:** [Pug](https://pugjs.org) - Pug is cleaner and much less verbose than HTML, especially when using classes (e.g. for TailwindCSS).
-\
-**Language:** [TypeScript](https://www.typescriptlang.org/) - TypeScript make intellisense much more powerful (and consequently make development much more productive). They also eliminate a whole class of common programmer errors.
+**Build tool:** [Vite](https://vitejs.org)
+
+- Vite's extremely fast development and build times help skyrocket developer productivity
+
+**JavaScript Framework:** [Vue 3](https://https://v3.vuejs.org/)
+
+- Easy to learn
+- SFC (single file component) syntax is cleaner and more approachable than alternatives like JSX
+
+**CSS Framework:** [WindiCSS](https://windicss.org)
+
+- Easier to style components
+- Removes the need to think of arbitrary class names
+- Consistent styles throughout the frontend
+- TailwindCSS-compatible
+- Works better with Vite than TailwindCSS
+
+**HTML Preprocessor:** [Pug](https://pugjs.org)
+
+- Cleaner and much less verbose than HTML
+- Better syntax when using classes (especially for WindiCSS).
+
+**Language:** [TypeScript](https://www.typescriptlang.org/)
+
+- Makes intellisense much more powerful
+- Makes development much more productive
+- Eliminate a whole class of common programmer errors
+- Serves partially as documentation
 
 ### Backend
 
-**Runtime:** [Node.js](https://nodejs.org) - Node is the most popular JavaScript runtime, and has the largest ecosystem (e.g. compatible npm packages).
-\
-**Language:** [TypeScript](https://www.typescriptlang.org/) - TypeScript is invaluable when interacting with client requests (as we can define and enforce the exact arguments to pass to the backend through typings) and also makes working with the database a lot more manageable.
-\
-**Web Framework:** [Fastify](https://fastify.io) - Fastify is one of the fastest JavaScript web frameworks. It's also very flexible, very extensible, and better maintained than the alternatives.
-\
-**Database:** [PostgreSQL](https://www.postgresql.org/) - PostgreSQL is an extremely powerful relational database supported by Prisma (in addition, it's the 2nd most used database and the most loved database according to StackOverflow 2021 survey).
-\
-**Database ORM:** [Prisma](http://prisma.io/) - Prisma provides strong typing for interacting with the database, eliminating a ton of runtime SQL errors that result from incorrect types. It also works much more nicely with TypeScript compared to raw SQL, and it provides a built-in and easy way to handle database migrations.
+**Runtime:** [Node.js](https://nodejs.org)
+
+- Most popular JavaScript runtime
+- Largest ecosystem (e.g. compatible npm packages).
+
+**Language:** [TypeScript](https://www.typescriptlang.org/)
+
+- Invaluable when handling data from client requests (as we can define and enforce the exact arguments to pass to the backend through typings)
+- Makes working with the database a lot safer
+
+**Web Framework:** [Fastify](https://fastify.io)
+
+- One of the fastest JavaScript web frameworks
+- Very flexible and extensible
+- Better maintained than the alternatives
+
+**Database:** [PostgreSQL](https://www.postgresql.org/)
+
+- Extremely powerful relational database
+- Supported by Prisma
+- 2nd most used database and the most loved database according to StackOverflow 2021 survey
+
+**Database ORM:** [Prisma](http://prisma.io/)
+
+- Provides strong typing for interacting with the database, eliminating a ton of runtime SQL errors that result from incorrect types
+- Works much more nicely with TypeScript compared to raw SQL
+- Provides a built-in and easy way to handle database migrations.
 
 ### Other
 
-**JavaScript package manager:** [Yarn](https://yarnpkg.com/) - Yarn is typically faster than npm (and has cleaner output), and works well with virtually all packages (unfortunately, pnpm didn't work well with Prisma).
-\
-**Containerization:** [Docker](https://docker.com) - Docker is the de-facto containerization software, making it easy to develop DrillDev regardless of what platform you're on. It also makes deploying to production a lot easier.
-\
-**Container Orchestration (tentative):** [Kubernetes](https://kubernetes.io) - Kubernetes is extremely easy to integrate into a DevOps workflow. It's also highly scalable, which will prove useful when we need to scale DrillDev servers during times of high-usage (e.g. before a popular drilldash).
+**JavaScript Package Manager:** [Yarn](https://yarnpkg.com/)
+
+- Typically faster than npm
+- Cleaner output than npm
+- Compatible with virtually all packages (unfortunately, pnpm didn't work well with Prisma)
+
+**Containerization:** [Docker](https://docker.com)
+
+- The de-facto containerization software
+- Makes it easy to develop DrillDev regardless of what platform you're on
+- Makes deploying to production a lot easier
+- Eliminates the need to install dependencies (e.g. PostgreSQL) on the host machine
+
+**Container Orchestration (tentative):** [Kubernetes](https://kubernetes.io)
+
+- Extremely easy to integrate into a DevOps workflow
+- Highly scalable, which will prove useful when we need to scale DrillDev servers during times of high-usage (e.g. before a popular drilldash)
 
 ## DrillDev Current & Future Plans
 
