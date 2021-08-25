@@ -6,7 +6,7 @@ DrillDev is a site for practicing and measuring your software development abilit
 
 That's why we're creating DrillDev.
 
-DrillDev is an open source project which aims to provide a way to practice and prove your software development skills. We're still in very early stages of development, and we're welcome to inviting new members on the team who are passionate about giving software development the same level of treatment as other aspects of computer science. If you're interested, feel free to send us an email at contact@drilldev.com!
+DrillDev is an project which aims to provide a way to practice and prove your software development skills. We're still in very early stages of development, and we're welcome to inviting new members on the team who are passionate about giving software development the same level of treatment as other aspects of computer science. If you're interested, feel free to send us an email at contact@drilldev.com!
 
 Happy drilling!
 
@@ -95,4 +95,4 @@ Happy drilling!
 
 ## Current & Future Plans
 
-Currently, we're focusing on testing web applications using browser automation tools like Playwright. The submission code would bind to a port and render a webpage that would be subsequently tested using these browser automation tools. However, we're hoping to expand the scope of DrillDev in the future to testing applications like desktop applications to Android and iOS apps (after all, they still fall under the category of software development). This is a major reason why we're committed to developing DrillDev in the open; we believe that the community's breadth of knowledge in various different platforms will help grow the scope of DrillDev beyond what a small team could do.
+Currently, we're focusing on testing web applications using browser automation tools like Playwright. The submission code would bind to a port and render a webpage that would be subsequently tested using these browser automation tools. However, we're hoping to expand the scope of DrillDev in the future to testing applications like desktop applications to Android and iOS apps (after all, they still fall under the category of software development).
