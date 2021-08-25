@@ -16,7 +16,7 @@ Happy drilling!
 
 **Build tool:** [Vite](https://vitejs.org)
 
-- Vite's extremely fast development and build times help skyrocket developer productivity
+- Extremely fast development and build times help skyrocket developer productivity
 
 **JavaScript Framework:** [Vue 3](https://https://v3.vuejs.org/)
 
@@ -34,7 +34,7 @@ Happy drilling!
 **HTML Preprocessor:** [Pug](https://pugjs.org)
 
 - Cleaner and much less verbose than HTML
-- Better syntax when using classes (especially for WindiCSS).
+- Better syntax when using classes (especially for WindiCSS)
 
 **Language:** [TypeScript](https://www.typescriptlang.org/)
 
@@ -48,7 +48,7 @@ Happy drilling!
 **Runtime:** [Node.js](https://nodejs.org)
 
 - Most popular JavaScript runtime
-- Largest ecosystem (e.g. compatible npm packages).
+- Large ecosystem (e.g. compatible npm packages)
 
 **Language:** [TypeScript](https://www.typescriptlang.org/)
 
@@ -71,7 +71,7 @@ Happy drilling!
 
 - Provides strong typing for interacting with the database, eliminating a ton of runtime SQL errors that result from incorrect types
 - Works much more nicely with TypeScript compared to raw SQL
-- Provides a built-in and easy way to handle database migrations.
+- Provides a built-in and easy way to handle database migrations
 
 ### Other
 
