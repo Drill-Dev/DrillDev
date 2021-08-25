@@ -2,7 +2,7 @@
 
 **Drill** **dev**elopment.
 
-DrillDev is similar to other computer science sites, except for one major difference. We want to test and measure software development abilities. As software developers, we aren't really concerned if you can implemtent a red-black tree or if you understand the Fast Fourier Transform. We want to measure your ability to develop apps that end users can use. While there are other metrics you can use to prove your skill in software development, such as internships and hackathon projects, they're ultimately impossible to compare between people, making it hard to see exactly how you rank among the millions of other software developers.
+DrillDev is a site for practicing and measuring your software development abilities. As software developers, we aren't really concerned if you can implemtent a red-black tree or if you understand the Fast Fourier Transform. We want to measure your ability to develop apps that end users can use. While there are other metrics you can use to prove your skill in software development, such as internships and hackathon projects, they're ultimately impossible to compare between people, making it hard to see exactly how you rank among the millions of other software developers.
 
 That's why we're creating DrillDev.
 
