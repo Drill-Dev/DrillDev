@@ -65,6 +65,10 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 	app.post('/run', async (request, reply) => {
 		const submissionId = Math.floor(Math.random() * 1000).toString();
 
+		// TODO: retrieve the ports and start command from the database
+		const ports = ['8080'];
+		const startCommand = 'python -m http.server -d /root/html 8080';
+
 		// Create a temporary directory for the submission
 		return await tmp.withDir(
 			async ({ path: submissionPath }) => {
@@ -84,11 +88,16 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					Name: `submission-network-${submissionId}`,
 				});
 
+				const exposedPorts: Record<string, Record<string, never>> = {};
+				for (const port of ports) {
+					exposedPorts[`${port}/tcp`] = {};
+				}
+
 				const submissionContainer = await docker.createContainer({
 					Image: 'python:3.8',
 					name: `submission_${submissionId}`,
-					Cmd: stringArgv('python -m http.server -d /root/html 8080'),
-					ExposedPorts: { '8080/tcp': {} },
+					Cmd: stringArgv(startCommand),
+					ExposedPorts: exposedPorts,
 					HostConfig: {
 						// Mount the submission directory to /root/html
 						Binds: [`${submissionPath}:/root/html:ro`],
@@ -102,8 +111,6 @@ export default async function drillSubmitRoute(app: FastifyInstance) {
 					});
 
 					await submissionContainer.start();
-
-					const ports = ['8080'];
 
 					const createBashPortCheckString = (port: string) => {
 						return `"$(curl -o /dev/null -w '%{http_code}' submission_${submissionId}:${port})" != '200'`;
