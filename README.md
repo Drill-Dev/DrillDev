@@ -10,6 +10,22 @@ DrillDev is an project which aims to provide a way to practice and prove your so
 
 Happy drilling!
 
+## Setup
+
+To get started with developing DrillDev, first clone the repository:
+
+```shell script
+git clone --recursive-modules git@github.com:Drill-Dev/drilldev.git
+```
+
+Then, make sure you have [Yarn](https://yarnpkg.com/) installed and run the following command from the root of the repository:
+
+```shell script
+yarn setup
+```
+
+This will set up git aliases that make committing changes across submodules easier. You can find a list of the current git aliases in the `.gitalias` file.
+
 ## Technologies
 
 ### Frontend
