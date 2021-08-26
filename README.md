@@ -43,36 +43,6 @@ Happy drilling!
 - Eliminate a whole class of common programmer errors
 - Serves partially as documentation
 
-### Backend
-
-**Runtime:** [Node.js](https://nodejs.org)
-
-- Most popular JavaScript runtime
-- Large ecosystem (e.g. compatible npm packages)
-
-**Language:** [TypeScript](https://www.typescriptlang.org/)
-
-- Invaluable when handling data from client requests (as we can define and enforce the exact arguments to pass to the backend through typings)
-- Makes working with the database a lot safer
-
-**Web Framework:** [Fastify](https://fastify.io)
-
-- One of the fastest JavaScript web frameworks
-- Very flexible and extensible
-- Better maintained than the alternatives
-
-**Database:** [PostgreSQL](https://www.postgresql.org/)
-
-- Extremely powerful relational database
-- Supported by Prisma
-- 2nd most used database and the most loved database according to StackOverflow 2021 survey
-
-**Database ORM:** [Prisma](http://prisma.io/)
-
-- Provides strong typing for interacting with the database, eliminating a ton of runtime SQL errors that result from incorrect types
-- Works much more nicely with TypeScript compared to raw SQL
-- Provides a built-in and easy way to handle database migrations
-
 ### Other
 
 **JavaScript Package Manager:** [Yarn](https://yarnpkg.com/)
@@ -80,18 +50,6 @@ Happy drilling!
 - Typically faster than npm
 - Cleaner output than npm
 - Compatible with virtually all packages (unfortunately, pnpm didn't work well with Prisma)
-
-**Containerization:** [Docker](https://docker.com)
-
-- The de-facto containerization software
-- Makes it easy to develop DrillDev regardless of what platform you're on
-- Makes deploying to production a lot easier
-- Eliminates the need to install dependencies (e.g. PostgreSQL) on the host machine
-
-**Container Orchestration (tentative):** [Kubernetes](https://kubernetes.io)
-
-- Extremely easy to integrate into a DevOps workflow
-- Highly scalable, which will prove useful when we need to scale DrillDev servers during times of high-usage (e.g. before a popular drilldash)
 
 ## Current & Future Plans
 
