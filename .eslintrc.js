@@ -46,6 +46,7 @@ module.exports = {
 		'no-else-return': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
+		'import/no-default-export': 'error',
 		'unicorn/prefer-module': 'off',
 		'unicorn/prefer-node-protocol': 'off',
 		'unicorn/prefer-ternary': 'off',

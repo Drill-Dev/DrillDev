@@ -2,6 +2,14 @@
 
 module.exports = {
 	extends: ['../.eslintrc.js'],
+	overrides: [
+		{
+			files: ['src/routes/**/*.ts', 'src/plugins/**/*.ts'],
+			rules: {
+				'import/no-default-export': 'off',
+			},
+		},
+	],
 	env: {
 		node: true,
 	},
