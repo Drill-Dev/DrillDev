@@ -7,6 +7,8 @@ import stringArgv from 'string-argv';
 import tmp from 'tmp-promise';
 import { promisify } from 'util';
 
+import { getLogs } from '~/utils/docker';
+
 // A promisfied wrapper for easily piping a file read stream into a write stream
 const pump = promisify(pipeline);
 
@@ -43,20 +45,7 @@ async function judgeSubmission({
 	try {
 		await judgeContainer.start();
 
-		const logStream = await judgeContainer.logs({
-			stdout: true,
-			stderr: true,
-			follow: true,
-		});
-
-		const logs = await (async () => {
-			const output = [];
-			for await (const data of logStream as AsyncIterable<Buffer>) {
-				output.push(data);
-			}
-			return Buffer.concat(output).toString('utf-8');
-		})();
-
+		const logs = await getLogs(judgeContainer);
 		const exitCode = (await judgeContainer.inspect()).State.ExitCode;
 
 		// If the test passed
