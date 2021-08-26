@@ -6,7 +6,7 @@ if [ -z $1 ]; then
 fi
 
 git submodule foreach git add -A .
-git submodule foreach git commit -am "$1" || :
+git submodule foreach "git commit -am \"$1\" || :"
 
 git add -A .
 git commit -am "$1"
