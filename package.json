@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev:backend": "yarn workspace backend dev",
 		"dev:frontend": "yarn workspace frontend dev",
-		"prepare": "husky install"
+		"prepare": "./scripts/setup-aliases.sh && husky install"
 	},
 	"workspaces": [
 		"frontend",
