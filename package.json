@@ -9,7 +9,8 @@
 		"dev:backend": "yarn workspace backend dev",
 		"dev:frontend": "yarn workspace frontend dev",
 		"prepare": "husky install",
-		"setup": "python3 ./scripts/setup_aliases.py"
+		"setup": "python3 ./scripts/setup_aliases.py",
+		"postinstall": "yarn workspace backend generate"
 	},
 	"workspaces": [
 		"frontend",
