@@ -1,4 +1,4 @@
 [alias]
-	sc = "!./scripts/supercommit.py"
-	sp = "!./scripts/superpush.py"
-	spl = "!./scripts/superpull.py"
+	sc = "!python3 ./scripts/supercommit.py"
+	sp = "!python3 ./scripts/superpush.py"
+	spl = "!python3 ./scripts/superpull.py"
