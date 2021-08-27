@@ -17,7 +17,7 @@ export default defineComponent({
 			const formData = new FormData();
 			formData.append('file', fileInput.value!.files![0] as Blob);
 
-			const response = await serverKy.post('run', {
+			const response = await serverKy.post('drill/submit', {
 				body: formData,
 				timeout: false,
 			});

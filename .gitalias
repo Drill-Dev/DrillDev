@@ -1,3 +1,4 @@
 [alias]
 	sc = "!./scripts/supercommit.sh"
 	sp = "!./scripts/superpush.sh"
+	spl = "!./scripts/superpull.sh"
