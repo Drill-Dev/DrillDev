@@ -2,7 +2,6 @@
 
 import sys
 import subprocess
-import os
 
 if len(sys.argv) < 2:
     sys.exit("You need to provide a commit message")
