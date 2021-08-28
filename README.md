@@ -15,7 +15,7 @@ Happy drilling!
 To get started with developing DrillDev, first clone the repository:
 
 ```shell script
-git clone --recursive-modules git@github.com:Drill-Dev/drilldev.git
+git clone --recurse-submodules git@github.com:Drill-Dev/drilldev.git
 ```
 
 Then, make sure you have [Yarn](https://yarnpkg.com/) installed and run the following command from the root of the repository:
