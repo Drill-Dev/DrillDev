@@ -43,6 +43,10 @@ const accountRoutes: RouteRecordRaw[] = [
 		path: '/profile/:username/edit',
 		component: () => import('~/pages/account/EditProfilePage.vue'),
 	},
+	{
+		path: '/password-reset',
+		component: () => import('~/pages/account/ResetPasswordPage.vue'),
+	},
 ];
 
 const manageRoutes: RouteRecordRaw[] = [
