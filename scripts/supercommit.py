@@ -7,8 +7,7 @@ if len(sys.argv) < 2:
     sys.exit("You need to provide a commit message")
 msg = sys.argv[1]
 
-subprocess.check_call("git submodule foreach git add -A .".split())
-subprocess.check_call("git submodule foreach git commit -am".split() + [msg])
+subprocess.check_call("git submodule foreach git commit -m".split() + [msg])
 
-subprocess.check_call("git add -A .".split())
-subprocess.check_call("git commit -am".split() + [msg])
+subprocess.check_call("git add backend".split())
+subprocess.check_call("git commit -m".split() + [msg])
