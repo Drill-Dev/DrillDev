@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
-subprocess.check_call("git submodule foreach git push".split())
-subprocess.check_call("git push".split())
+import shlex
+
+subprocess.check_call(shlex.split("git submodule foreach git push"))
+subprocess.check_call(shlex.split("git push"))
