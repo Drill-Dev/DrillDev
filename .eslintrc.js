@@ -27,6 +27,7 @@ module.exports = {
 		'no-underscore-dangle': 'off',
 		'no-unused-expressions': 'off',
 		'no-shadow': 'off',
+		'no-console': 'off',
 
 		// eslint-plugin-import rules
 		'import/no-default-export': 'error',
