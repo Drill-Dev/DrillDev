@@ -1,4 +1,4 @@
 [alias]
-	scommit = "!python3 ./scripts/supercommit.py"
-	spush = "!python3 ./scripts/superpush.py"
-	spull = "!python3 ./scripts/superpull.py"
+	scommit = "!python3 scripts/supercommit.py"
+	spush = "!python3 scripts/superpush.py"
+	spull = "!python3 scripts/superpull.py"
