@@ -12,6 +12,5 @@ try:
 except:
     pass
 
-
 subprocess.check_call("git add backend".split())
 subprocess.check_call("git commit".split() + args)
