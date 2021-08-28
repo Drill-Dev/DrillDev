@@ -1,7 +1,7 @@
 <template lang="pug">
 .flex.flex-col
-	input(type='file' ref='fileInput' name='file')
-	button(@click="submitCode") Submit
+	input(type='file', ref='fileInput', name='file')
+	button(@click='submitCode') Submit
 </template>
 
 <script lang="ts">

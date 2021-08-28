@@ -5,8 +5,9 @@ module.exports = {
 		'airbnb-base',
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
-		'prettier',
 		'plugin:unicorn/recommended',
+		'plugin:import/typescript',
+		'prettier',
 	],
 	plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'unicorn'],
 	rules: {
@@ -28,6 +29,7 @@ module.exports = {
 		'no-unused-expressions': 'off',
 		'no-shadow': 'off',
 		'no-console': 'off',
+		'no-continue': 'off',
 
 		// eslint-plugin-import rules
 		'import/no-default-export': 'error',
@@ -74,7 +76,7 @@ module.exports = {
 			{ ignoreArgsIfArgsAfterAreUsed: true },
 		],
 		'@typescript-eslint/no-unused-expressions': 'error',
-		'@typescript-eslint/no-shadow': 'error',
+		'@typescript-eslint/no-shadow': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
 
@@ -83,5 +85,6 @@ module.exports = {
 		'unicorn/prefer-node-protocol': 'off',
 		'unicorn/prefer-ternary': 'off',
 		'unicorn/prevent-abbreviations': 'off',
+		'unicorn/consistent-function-scoping': 'off',
 	},
 };

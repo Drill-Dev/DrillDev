@@ -21,7 +21,7 @@ module.exports = {
 		node: true,
 		browser: true,
 	},
-	extends: ['../.eslintrc.js', 'plugin:vue/vue3-recommended'],
+	extends: ['../.eslintrc.js', 'plugin:vue/vue3-recommended', 'prettier'],
 	rules: {
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'unicorn/filename-case': [
