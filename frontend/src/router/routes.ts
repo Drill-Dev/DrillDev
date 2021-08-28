@@ -76,9 +76,15 @@ const websiteRoutes: RouteRecordRaw[] = [
 ];
 
 export const routes: RouteRecordRaw[] = [
-	...specificSubmissionRoutes,
-	...specificDrillRoutes,
-	...accountRoutes,
-	...manageRoutes,
-	...websiteRoutes,
+	{
+		path: '',
+		component: () => import('~/layouts/WebsiteLayout.vue'),
+		children: [
+			...specificSubmissionRoutes,
+			...specificDrillRoutes,
+			...accountRoutes,
+			...manageRoutes,
+			...websiteRoutes,
+		],
+	},
 ];
