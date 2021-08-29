@@ -3,7 +3,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import WindiCSS from 'vite-plugin-windicss';
 
-// https://vitejs.dev/config/
+// eslint-disable-next-line import/no-default-export
 export default defineConfig({
 	plugins: [vue(), WindiCSS()],
 	resolve: {
