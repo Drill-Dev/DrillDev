@@ -79,6 +79,7 @@ module.exports = {
 		'@typescript-eslint/no-shadow': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
+		'@typescript-eslint/consistent-type-imports': 'error',
 
 		// eslint-plugin-unicorn
 		'unicorn/prefer-module': 'off',

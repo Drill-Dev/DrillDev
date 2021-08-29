@@ -1,6 +1,6 @@
-import { ActionThis, GetterThis, RawStore } from '../types';
-import * as actorActions from './actions';
-import * as actorGetters from './getters';
+import type { ActionThis, GetterThis, RawStore } from '../types';
+import type * as actorActions from './actions';
+import type * as actorGetters from './getters';
 
 type ActorActions = typeof actorActions;
 type ActorGetters = typeof actorGetters;

@@ -1,4 +1,4 @@
-import { ActorStoreState } from './types';
+import type { ActorStoreState } from './types';
 
 export function createActorStoreState(): ActorStoreState {
 	return {
