@@ -1,2 +1,2 @@
-:; python scripts/hooks/pre_commit.py
+:; python scripts/hooks/pre_commit.py; exit $?
 python3 scripts/hooks/pre_commit.py
