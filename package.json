@@ -10,7 +10,7 @@
 		"dev:frontend": "yarn workspace frontend dev",
 		"prepare": "husky install",
 		"setup": "python3 ./scripts/update_aliases.py",
-		"postinstall": "yarn workspace backend generate",
+		"prepare": "yarn workspace backend generate",
 		"prettier": "yarn workspace frontend prettier && yarn workspace backend prettier",
 		"lint": "yarn workspace frontend lint && yarn workspace backend lint"
 	},

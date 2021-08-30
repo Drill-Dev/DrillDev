@@ -1,1 +1,2 @@
+:; python scripts/hooks/pre_commit.py
 python3 scripts/hooks/pre_commit.py
