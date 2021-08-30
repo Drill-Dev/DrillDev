@@ -8,8 +8,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
+import type { Tab } from '~/types/Tab';
+
 import NavigationBarTab from './NavigationBarTab.vue';
-import { Tab } from '~/types/Tab';
 
 const leftTabs: Tab[] = [
 	{
