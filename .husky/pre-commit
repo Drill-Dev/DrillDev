@@ -1,1 +1,1 @@
-python3 scripts/hooks/pre_commit.py
+ipython3 scripts/hooks/pre_commit.py
