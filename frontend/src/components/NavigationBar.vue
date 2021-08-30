@@ -1,17 +1,17 @@
 <template lang="pug">
-template(v-for="tab of tabs")
-	router-link(:to="tab.route") {{ tab.title }}
+.flex.flex-row.border-b.px-8
+	.flex.flex-row.flex-1
+		NavigationBarTab(v-for="tab of leftTabs", :tab="tab")
+	.flex.flex-row.flex-1.justify-end
+		NavigationBarTab(v-for="tab of rightTabs", :tab="tab")
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import NavigationBarTab from './NavigationBarTab.vue';
+import { Tab } from '~/types/Tab';
 
-type Tab = {
-	title: string;
-	route: string;
-};
-
-const tabs: Tab[] = [
+const leftTabs: Tab[] = [
 	{
 		title: 'Drills',
 		route: '/drills',
@@ -22,9 +22,21 @@ const tabs: Tab[] = [
 	},
 ];
 
+const rightTabs: Tab[] = [
+	{
+		title: 'Login',
+		route: '/login',
+	},
+	{
+		title: 'Register',
+		route: '/register',
+	},
+];
+
 export default defineComponent({
+	components: { NavigationBarTab },
 	setup() {
-		return { tabs };
+		return { leftTabs, rightTabs };
 	},
 });
 </script>
