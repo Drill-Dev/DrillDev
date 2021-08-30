@@ -1,5 +1,5 @@
 <template lang="pug">
-.flex.flex-col.h-full
+.column.h-full
 	navigation-bar
 	router-view
 </template>

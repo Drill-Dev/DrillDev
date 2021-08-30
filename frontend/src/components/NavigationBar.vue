@@ -1,6 +1,6 @@
 <template lang="pug">
-template(v-for='tab of tabs')
-	router-link(:to='tab.route') {{ tab.title }}
+template(v-for="tab of tabs")
+	router-link(:to="tab.route") {{ tab.title }}
 </template>
 
 <script lang="ts">

@@ -1,5 +1,11 @@
 {
 	"useTabs": true,
 	"singleQuote": true,
-	"printWidth": 80
+	"printWidth": 80,
+	"arrowParens": "always",
+	"pugSingleFileComponentIndentation": false,
+	"pugSingleQuote": false,
+	"pugAttributeSeparator": "none",
+	"pugWrapAttributesPattern": "1",
+	"pugEmptyAttributes": "none"
 }

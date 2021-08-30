@@ -1,9 +1,7 @@
-<template>
-	<div class="flex flex-col h-full">
-		<div class="flex-grow">
-			<router-view />
-		</div>
-	</div>
+<template lang="pug">
+.column.h-full
+	.flex-grow
+		router-view
 </template>
 
 <script lang="ts">
