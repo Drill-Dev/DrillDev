@@ -1,2 +1,2 @@
-:; python scripts/hooks/commit_msg.py $@; exit $?
-python3 scripts/hooks/commit_msg.py %*
+:; python3 scripts/hooks/commit_msg.py $@; exit $?
+python scripts/hooks/commit_msg.py %*
