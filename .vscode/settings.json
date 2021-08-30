@@ -23,5 +23,8 @@
 		"Vite's",
 		"hackathon",
 		"pnpm"
-	]
+	],
+	"windicss.includeLanguages": {
+		"pug": "html"
+	}
 }
