@@ -8,9 +8,7 @@
 	"scripts": {
 		"dev:backend": "yarn workspace backend dev",
 		"dev:frontend": "yarn workspace frontend dev",
-		"prepare": "husky install",
-		"setup": "python3 ./scripts/update_aliases.py",
-		"prepare": "yarn workspace backend generate",
+		"prepare": "python ./scripts/hooks/prepare.py",
 		"prettier": "yarn workspace frontend prettier && yarn workspace backend prettier",
 		"lint": "yarn workspace frontend lint && yarn workspace backend lint"
 	},
