@@ -13,7 +13,7 @@ def update_config(config_path: str, path_prefix: str = None):
 	file = open(config_path, 'w')
 
 	# Delete any old aliases from the config
-	remove_alias_re = re.compile(r'\[alias\].*(\[|$)', re.DOTALL)
+	remove_alias_re = re.compile(r'\[alias\].*?(?=\[|$)', re.DOTALL)
 	new_config = re.sub(remove_alias_re, '', old_config)
 
 	config_aliases = aliases
