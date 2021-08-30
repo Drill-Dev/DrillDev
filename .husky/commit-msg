@@ -1,4 +1,2 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-npx --no-install commitlint --edit "$1"
+:; python3 scripts/hooks/commit_msg.py $@; exit $?
+python3 scripts/hooks/commit_msg.py %*
