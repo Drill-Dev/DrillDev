@@ -5,7 +5,7 @@
 	"arrowParens": "always",
 	"pugSingleFileComponentIndentation": false,
 	"pugSingleQuote": false,
-	"pugAttributeSeparator": "none",
+	"pugAttributeSeparator": "always",
 	"pugWrapAttributesPattern": "1",
 	"pugEmptyAttributes": "none"
 }

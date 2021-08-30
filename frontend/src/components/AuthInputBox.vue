@@ -2,9 +2,9 @@
 .column
 	.font-bold {{ title }}
 	input.border.rounded-xl.px-5.py-3.mt-2(
-		:placeholder="title"
-		:type="type"
-		:value="modelValue"
+		:placeholder="title",
+		:type="type",
+		:value="modelValue",
 		@input="onUpdate"
 	)
 </template>

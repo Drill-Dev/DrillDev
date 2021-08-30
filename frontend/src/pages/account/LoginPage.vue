@@ -1,9 +1,9 @@
 <template lang="pug">
 AuthLayout(title="Login to DrillDev")
-	AuthInputBox(title="Email" type="text" v-model="email")
-	AuthInputBox(title="Password" type="password" v-model="password")
+	AuthInputBox(title="Email", type="text", v-model="email")
+	AuthInputBox(title="Password", type="password", v-model="password")
 	AuthButton.bg-blue-700.text-white.transition-all.duration-25(
-		title="Login"
+		title="Login",
 		class="hover:bg-blue-900"
 	)
 </template>

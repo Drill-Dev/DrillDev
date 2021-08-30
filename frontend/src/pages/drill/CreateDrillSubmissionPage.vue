@@ -1,6 +1,6 @@
 <template lang="pug">
 .column
-	input(type="file" ref="fileInput" name="file")
+	input(type="file", ref="fileInput", name="file")
 	button(@click="submitCode") Submit
 </template>
 

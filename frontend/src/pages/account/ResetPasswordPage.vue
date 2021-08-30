@@ -5,13 +5,13 @@
 	)
 		.text-3xl.font-black Reset Password
 		input.border.rounded-3xl.h-10.px-5(
-			placeholder="New password"
-			v-model="newPassword"
+			placeholder="New password",
+			v-model="newPassword",
 			type="password"
 		)
 		input.border.rounded-3xl.h-10.px-5(
-			placeholder="Confirm new password"
-			v-model="confirmPassword"
+			placeholder="Confirm new password",
+			v-model="confirmPassword",
 			type="password"
 		)
 		.text-red-700(v-show="!passwordsMatch") Passwords do not match.
