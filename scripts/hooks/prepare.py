@@ -1,6 +1,5 @@
-import shlex
-import subprocess
+import os
 
-subprocess.check_call(shlex.split("yarn run husky install"))
-subprocess.check_call(shlex.split("python ./scripts/update_aliases.py"))
-subprocess.check_call(shlex.split("yarn workspace backend generate"))
+os.system('yarn run husky install')
+os.system('python ./scripts/update_aliases.py')
+os.system('yarn workspace backend generate')

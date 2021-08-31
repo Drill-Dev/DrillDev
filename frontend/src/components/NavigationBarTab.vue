@@ -6,8 +6,10 @@ router-link.px-2.py-4.transition-all.duration-50(
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { Tab } from '~/types/Tab';
+import type { PropType } from 'vue';
+import { defineComponent } from 'vue';
+
+import type { Tab } from '~/types/Tab';
 
 export default defineComponent({
 	name: 'NavigationBarTab',
