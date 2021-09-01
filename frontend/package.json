@@ -11,9 +11,9 @@
 		"prettier": "prettier --write src/**/*.{js,ts,vue}"
 	},
 	"dependencies": {
-		"email-validator": "^2.0.4",
-		"ky": "^0.28.5",
-		"pinia": "^2.0.0-rc.6",
+		"email-validator": "2.0.4",
+		"ky": "0.28.5",
+		"pinia": "2.0.0-rc.6",
 		"vue": "^3.2.6",
 		"vue-router": "^4.0.11"
 	},
