@@ -30,7 +30,6 @@ module.exports = {
 		'no-shadow': 'off',
 		'no-console': 'off',
 		'no-continue': 'off',
-		'consistent-return': 'off',
 		'no-cond-assign': ['error', 'except-parens'],
 		'default-case': 'off',
 
