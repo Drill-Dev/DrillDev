@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import NavigationBar from '~/components/NavigationBar.vue';
+import NavigationBar from '~/components/navigation-bar.vue';
 
 export default defineComponent({
 	components: { NavigationBar },

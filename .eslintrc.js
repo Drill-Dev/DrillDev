@@ -88,5 +88,6 @@ module.exports = {
 		'unicorn/prefer-ternary': 'off',
 		'unicorn/prevent-abbreviations': 'off',
 		'unicorn/consistent-function-scoping': 'off',
+		'unicorn/filename-case': ['error', { case: 'kebabCase' }],
 	},
 };

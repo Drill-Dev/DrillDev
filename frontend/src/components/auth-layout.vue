@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import AuthButton from '~/components/AuthButton.vue';
+import AuthButton from '~/components/auth-button.vue';
 
 export default defineComponent({
 	name: 'AuthLayout',

@@ -11,7 +11,7 @@ import { defineComponent } from 'vue';
 
 import type { Tab } from '~/types/Tab';
 
-import NavigationBarTab from './NavigationBarTab.vue';
+import NavigationBarTab from './navigation-bar-tab.vue';
 
 const leftTabs: Tab[] = [
 	{

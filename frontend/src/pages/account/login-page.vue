@@ -11,9 +11,9 @@ AuthLayout(title="Login to DrillDev")
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
-import AuthButton from '~/components/AuthButton.vue';
-import AuthInputBox from '~/components/AuthInputBox.vue';
-import AuthLayout from '~/components/AuthLayout.vue';
+import AuthButton from '~/components/auth-button.vue';
+import AuthInputBox from '~/components/auth-input-box.vue';
+import AuthLayout from '~/components/auth-layout.vue';
 
 export default defineComponent({
 	name: 'LoginPage',
