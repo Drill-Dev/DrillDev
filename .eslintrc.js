@@ -30,6 +30,9 @@ module.exports = {
 		'no-shadow': 'off',
 		'no-console': 'off',
 		'no-continue': 'off',
+		'consistent-return': 'off',
+		'no-cond-assign': ['error', 'except-parens'],
+		'default-case': 'off',
 
 		// eslint-plugin-import rules
 		'import/no-default-export': 'error',
@@ -88,6 +91,7 @@ module.exports = {
 		'unicorn/prefer-ternary': 'off',
 		'unicorn/prevent-abbreviations': 'off',
 		'unicorn/consistent-function-scoping': 'off',
+		'unicorn/no-useless-undefined': 'off',
 		'unicorn/filename-case': ['error', { case: 'kebabCase' }],
 	},
 };

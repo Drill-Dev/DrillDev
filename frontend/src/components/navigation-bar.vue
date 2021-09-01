@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import type { Tab } from '~/types/Tab';
+import type { Tab } from '~/types/tab';
 
 import NavigationBarTab from './navigation-bar-tab.vue';
 

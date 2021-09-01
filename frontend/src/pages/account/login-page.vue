@@ -13,9 +13,9 @@ AuthLayout(title="Login to DrillDev")
 import validator from 'email-validator';
 import { computed, defineComponent, ref } from 'vue';
 
-import AuthButton from '~/components/AuthButton.vue';
-import AuthInputBox from '~/components/AuthInputBox.vue';
-import AuthLayout from '~/components/AuthLayout.vue';
+import AuthButton from '~/components/auth-button.vue';
+import AuthInputBox from '~/components/auth-input-box.vue';
+import AuthLayout from '~/components/auth-layout.vue';
 import { serverKy } from '~/utils/ky';
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
 		const isEmail = computed(() => validator.validate(usernameOrEmail.value));
 
 		const onLogin = async () => {
-			const response = await serverKy.post('auth/login', {
+			const _response = await serverKy.post('auth/login', {
 				json: {
 					[isEmail.value ? 'email' : 'username']: usernameOrEmail.value,
 					password: password.value,
