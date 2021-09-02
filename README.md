@@ -30,7 +30,7 @@ This will set up git aliases that make committing changes across submodules easi
 
 ### Frontend
 
-**Build tool:** [Vite](https://vitejs.org)
+**Build tool:** [Vite](https://vitejs.dev)
 
 - Extremely fast development and build times help skyrocket developer productivity
 
