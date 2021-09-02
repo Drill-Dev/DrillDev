@@ -34,7 +34,7 @@ This will set up git aliases that make committing changes across submodules easi
 
 - Extremely fast development and build times help skyrocket developer productivity
 
-**JavaScript Framework:** [Vue 3](https://https://v3.vuejs.org/)
+**JavaScript Framework:** [Vue 3](https://v3.vuejs.org/)
 
 - Easy to learn
 - SFC (single file component) syntax is cleaner and more approachable than alternatives like JSX
