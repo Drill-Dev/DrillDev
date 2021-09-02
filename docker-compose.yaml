@@ -1,14 +1,25 @@
 version: "2.4"
 services:
-  postgresql:
+  postgres:
     image: postgres:13.4
     environment:
       POSTGRES_USER: drilldev
       POSTGRES_PASSWORD: password
       POSTGRES_DB: drilldev
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  redis:
+    init: true
+    image: redis:6.2.5
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    
 volumes:
-  postgres:
+  postgres_data:
+  redis_data:

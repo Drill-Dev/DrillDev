@@ -24,15 +24,7 @@ module.exports = {
 	extends: ['../.eslintrc.js', 'plugin:vue/vue3-recommended', 'prettier'],
 	rules: {
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-		'unicorn/filename-case': [
-			'error',
-			{
-				cases: {
-					pascalCase: true,
-					kebabCase: true,
-				},
-			},
-		],
+		'vue/component-name-in-template-casing': ['error', 'kebab-case'],
 	},
 	settings: {
 		'import/resolver': {
