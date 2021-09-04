@@ -2,7 +2,7 @@
 	"useTabs": true,
 	"singleQuote": true,
 	"printWidth": 80,
-	"semi": false,
+	"semi": true,
 	"arrowParens": "always",
 	"pugSingleFileComponentIndentation": false,
 	"pugSingleQuote": false,
