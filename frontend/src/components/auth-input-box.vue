@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 
 export default defineComponent({
 	name: 'AuthInputBox',
@@ -31,10 +31,10 @@ export default defineComponent({
 	emits: ['update:modelValue'],
 	setup(_props, ctx) {
 		const onUpdate = (event: Event) => {
-			const newValue = (event.target as HTMLInputElement).value
-			ctx.emit('update:modelValue', newValue)
-		}
-		return { onUpdate }
+			const newValue = (event.target as HTMLInputElement).value;
+			ctx.emit('update:modelValue', newValue);
+		};
+		return { onUpdate };
 	},
-})
+});
 </script>
