@@ -6,6 +6,7 @@ import re
 cwd = pathlib.Path.cwd()
 aliases = open(cwd / '.gitalias', 'r').read()
 
+
 def update_config(config_path: str, path_prefix: str = None):
 	old_config = open(config_path, "r").read()
 
@@ -19,7 +20,8 @@ def update_config(config_path: str, path_prefix: str = None):
 	config_aliases = aliases
 	if path_prefix != None:
 		assign_alias_re = re.compile(r'(=\s*"!\w+\s+)')
-		config_aliases = re.sub(assign_alias_re, r'\1' + f'{path_prefix}/', aliases)
+		config_aliases = re.sub(assign_alias_re, r'\1' + f'{path_prefix}/',
+		                        aliases)
 
 	# Append the most recent aliases (from the .gitalias file)
 	new_config += config_aliases
