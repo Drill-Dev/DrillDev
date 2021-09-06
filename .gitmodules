@@ -2,4 +2,3 @@
   path = backend
   url = git@github.com:Drill-Dev/drilldev-backend.git
   branch = "dev"
-  update = rebase
