@@ -9,7 +9,13 @@ if (process.argv.length < 2) {
 const args = process.argv.slice(2);
 
 try {
-	sync('git', [...parse('submodule for each git commit'), ...args] as string[]);
+	sync(
+		'git',
+		[...parse('submodule foreach git commit'), ...args] as string[],
+		{
+			stdout: process.stdout,
+		}
+	);
 } catch {
 	// empty
 }
