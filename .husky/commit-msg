@@ -1,2 +1,3 @@
-:; python3 scripts/hooks/commit_msg.py $@; exit $?
-python scripts/hooks/commit_msg.py %*
+:; yarn run ts-node ./scripts/hooks/commit-msg.ts $@; exit $?
+yarn run ts-node ./scripts/hooks/commit-msg.ts %*
+

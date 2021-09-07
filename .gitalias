@@ -1,4 +1,4 @@
 [alias]
-	scommit = "!python3 scripts/aliases/supercommit.py"
-	spush = "!python3 scripts/aliases/superpush.py"
-	spull = "!python3 scripts/aliases/superpull.py"
+	scommit = "!yarn run ts-node scripts/aliases/supercommit.ts"
+	spush = "!yarn run ts-node scripts/aliases/superpush.ts"
+	spull = "!yarn run ts-node scripts/aliases/superpull.ts"

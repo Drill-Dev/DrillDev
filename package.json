@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev:backend": "yarn workspace backend dev",
 		"dev:frontend": "yarn workspace frontend dev",
-		"prepare": "python ./scripts/hooks/prepare.py",
+		"prepare": "ts-node ./scripts/hooks/prepare.ts",
 		"prettier": "yarn workspace frontend prettier && yarn workspace backend prettier",
 		"lint": "yarn workspace frontend lint && yarn workspace backend lint"
 	},
@@ -19,6 +19,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "13.1.0",
 		"@commitlint/config-conventional": "13.1.0",
+		"@types/shell-quote": "^1.7.1",
 		"@typescript-eslint/eslint-plugin": "4.30.0",
 		"@typescript-eslint/parser": "4.30.0",
 		"eslint": "7.32.0",
@@ -27,6 +28,7 @@
 		"eslint-plugin-import": "2.24.2",
 		"eslint-plugin-simple-import-sort": "7.0.0",
 		"eslint-plugin-unicorn": "35.0.0",
+		"execa": "5.1.1",
 		"husky": "7.0.2",
 		"lint-staged": "11.1.2",
 		"prettier": "2.3.2",
@@ -38,5 +40,8 @@
 			"yarn workspace frontend lint",
 			"yarn workspace frontend prettier"
 		]
+	},
+	"dependencies": {
+		"shell-quote": "^1.7.2"
 	}
 }
