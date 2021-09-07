@@ -1,3 +1,5 @@
+#!/usr/bin/env -S npx ts-node-transpile-only --script-mode
+
 import { commandSync } from 'execa';
 
 function precommit() {

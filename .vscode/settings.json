@@ -1,15 +1,5 @@
 {
 	"files.eol": "\n",
-	"python.formatting.provider": "yapf",
-	"python.formatting.yapfArgs": [
-		// Tabs > Spaces (we're literally only using yapf because it's the only
-		// popular Python formatter that supports tabs—yes, that's how much
-		// I hate spaces)
-		"--style={use_tabs: true}"
-	],
-	"[python]": {
-		"editor.insertSpaces": false
-	},
 	"eslint.workingDirectories": [
 		"./backend",
 		"./frontend"

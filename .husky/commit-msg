@@ -1,3 +1,1 @@
-:; yarn run ts-node ./scripts/hooks/commit-msg.ts $@; exit $?
-yarn run ts-node ./scripts/hooks/commit-msg.ts %*
-
+./scripts/hooks/commit-msg.ts "$@"
