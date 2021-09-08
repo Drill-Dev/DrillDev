@@ -1,1 +1,2 @@
+#!bin/sh
 ./scripts/hooks/pre-commit.ts "$@"
