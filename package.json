@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev:backend": "yarn workspace backend dev",
 		"dev:frontend": "yarn workspace frontend dev",
-		"prepare": "ts-node./scripts/hooks/prepare.ts",
+		"prepare": "ts-node ./scripts/hooks/prepare.ts",
 		"prettier": "yarn workspace frontend prettier && yarn workspace backend prettier",
 		"lint": "yarn workspace frontend lint && yarn workspace backend lint"
 	},
