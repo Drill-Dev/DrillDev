@@ -23,7 +23,7 @@
 		"@vitejs/plugin-vue": "1.6.1",
 		"@vue/compiler-sfc": "3.2.10",
 		"eslint-import-resolver-alias": "1.1.2",
-		"eslint-plugin-vue": "7.17.0",
+		"eslint-plugin-vue": "7.18.0",
 		"pug": "3.0.2",
 		"vite": "2.5.4",
 		"vite-plugin-windicss": "1.4.2",
