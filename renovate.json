@@ -1,5 +1,0 @@
-{
-	"extends": ["config:base"],
-	"dependencyDashboardAutoclose": true,
-	"automerge": true
-}
