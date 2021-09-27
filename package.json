@@ -6,11 +6,11 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"dev:backend": "yarn workspace backend dev",
-		"dev:frontend": "yarn workspace frontend dev",
-		"prepare": "ts-node -v",
-		"prettier": "yarn workspace frontend prettier && yarn workspace backend prettier",
-		"lint": "yarn workspace frontend lint && yarn workspace backend lint"
+		"dev:backend": "pnpm dev --filter=./backend",
+		"dev:frontend": "pnpm dev --filter=./frontend",
+		"prepare": "ts-node ./scripts/hooks/prepare.ts",
+		"prettier": "pnpm recursive run prettier",
+		"lint": "pnpm recursive run lint"
 	},
 	"workspaces": [
 		"frontend",
@@ -39,8 +39,8 @@
 	},
 	"lint-staged": {
 		"frontend/**/*.{js,ts,vue}": [
-			"yarn workspace frontend lint",
-			"yarn workspace frontend prettier"
+			"pnpm lint --filter=./frontend",
+			"pnpm lint --filter=./prettier"
 		]
 	}
 }

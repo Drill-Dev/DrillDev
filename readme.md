@@ -18,10 +18,10 @@ To get started with developing DrillDev, first clone the repository:
 git clone --recurse-submodules git@github.com:Drill-Dev/drilldev.git
 ```
 
-Then, make sure you have [Yarn](https://yarnpkg.com/) installed and run the following command from the root of the repository:
+Then, make sure you have [pnpm](https://pnpm.io/) installed and run the following command from the root of the repository:
 
 ```shell script
-yarn setup
+pnpm run setup
 ```
 
 This will set up git aliases that make committing changes across submodules easier. You can find a list of the current git aliases in the `.gitalias` file.
@@ -61,11 +61,9 @@ This will set up git aliases that make committing changes across submodules easi
 
 ### Other
 
-**JavaScript Package Manager:** [Yarn](https://yarnpkg.com/)
+**JavaScript Package Manager:** [pnpm](https://pnpm.io/)
 
-- Typically faster than npm
-- Cleaner output than npm
-- Compatible with virtually all packages (unfortunately, pnpm didn't work well with Prisma)
+- Mush faster than npm/yarn
 
 ## Current & Future Plans
 

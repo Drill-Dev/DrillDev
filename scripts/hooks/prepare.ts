@@ -5,9 +5,9 @@ import { commandSync } from 'execa';
 import { updateAliases } from '../update-aliases';
 
 export function prepare() {
-	commandSync('yarn run husky install');
+	commandSync('pnpm exec husky install');
 	updateAliases();
-	commandSync('yarn workspace backend generate');
+	commandSync('pnpm generate --filter=./backend');
 }
 
 if (require.main === module) {
