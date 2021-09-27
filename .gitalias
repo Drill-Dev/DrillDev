@@ -1,4 +1,4 @@
 [alias]
-	scommit = "!pnpm run ts-node scripts/aliases/supercommit.ts"
-	spush = "!pnpm run ts-node scripts/aliases/superpush.ts"
-	spull = "!pnpm run ts-node scripts/aliases/superpull.ts"
+	scommit = "!pnpm exec ts-node scripts/aliases/supercommit.ts"
+	spush = "!pnpm exec ts-node scripts/aliases/superpush.ts"
+	spull = "!pnpm exec ts-node scripts/aliases/superpull.ts"

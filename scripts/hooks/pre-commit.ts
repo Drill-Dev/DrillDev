@@ -8,7 +8,7 @@ function precommit() {
 	).stdout.toString();
 
 	if (branch === 'dev') {
-		commandSync('pnpm run lint-staged', {
+		commandSync('pnpm exec lint-staged', {
 			stdout: process.stdout,
 		});
 	}
