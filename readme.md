@@ -15,7 +15,7 @@ Happy drilling!
 To get started with developing DrillDev, first clone the repository:
 
 ```shell script
-git clone --recurse-submodules git@github.com:Drill-Dev/drilldev.git
+git clone git@github.com:Drill-Dev/drilldev.git
 ```
 
 Then, make sure you have [pnpm](https://pnpm.io/) installed and run the following command from the root of the repository:
@@ -24,7 +24,7 @@ Then, make sure you have [pnpm](https://pnpm.io/) installed and run the followin
 pnpm run setup
 ```
 
-This will set up git aliases that make committing changes across submodules easier. You can find a list of the current git aliases in the `.gitalias` file.
+This command will also clone the DrillDev backend which is stored in another repository.
 
 ## Technologies
 
