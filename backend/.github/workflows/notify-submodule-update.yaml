@@ -1,0 +1,30 @@
+name: Send submodule updates to parent repo
+
+on:
+  push:
+    branches: 
+      - dev
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          repository: Drill-Dev/drilldev
+          submodules: true
+          token: ${{ secrets.DRILLDEV_BOT_TOKEN }}
+
+      - name: Pull & update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+
+      - name: Commit
+        run: |
+          git config user.email "admin@drilldev.com"
+          git config user.name "DrillDev Bot"
+          git add --all
+          git commit -m "chore: update submodules" || echo "No changes to commit"
+          git push

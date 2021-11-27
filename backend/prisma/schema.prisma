@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// For consistency, we use the text type for all IDs
+// Also apparently there's no performance difference between using text and varchar
+// https://stackoverflow.com/questions/4848964/difference-between-text-and-varchar-character-varying
+
+model Account {
+  id                  String               @id
+  email               String               @unique
+  username            String               @unique
+  passwordHash        String
+  submissions         Submission[]
+  drills              Drill[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model PasswordResetToken {
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+  token     String  @id
+}
+
+model Submission {
+  id           String  @id
+  submitter    Account @relation(fields: [submitterId], references: [id])
+  submitterId  String
+  code         String
+  buildCommand String?
+  startCommand String
+}
+
+model Drill {
+  id              String   @id
+  creator         Account  @relation(fields: [creatorId], references: [id])
+  creatorId       String
+  instructions    String
+  judgingCode     String
+  judgingExecutor String
+  buildCommand    String?
+  startCommand    String
+  exposedPorts    String[]
+}
