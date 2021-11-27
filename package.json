@@ -6,6 +6,7 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
+		"setup": "ts-node ./scripts/setup.ts",
 		"dev:backend": "pnpm dev --filter=./backend",
 		"dev:frontend": "pnpm dev --filter=./frontend",
 		"prepare": "ts-node ./scripts/hooks/prepare.ts",
